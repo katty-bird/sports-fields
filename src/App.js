@@ -1,4 +1,5 @@
 import React, { useState} from 'react';
+import { Home as HomeIcon } from '@mui/icons-material';
 import './App.css';
 
 function App() {
@@ -19,20 +20,31 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <HomeIcon className="home-icon" />
+        {isLoggedIn && <h1>Hello, {name}!</h1>}
+        {isLoggedIn && <button onClick={handleLogout}>Logout</button>}
       </header>
-    </div>
-  );
+      <main className="App-body">
+        {!isLoggedIn ? (
+          <div> 
+            <input 
+              type="text" 
+              placeholder="Enter your name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <button onClick={handleLogin}>Login</button>
+          
+          <p>Please Login</p>
+          </div>
+        ) : (
+          <div className="welcome">
+            <p>Hey there <strong>{name}</strong>, great that you are here. Let me show you around and tell you what you can do in the App.</p>
+          </div>
+        )}
+      </main>
+    </div> 
+  )
 }
 
 export default App;
