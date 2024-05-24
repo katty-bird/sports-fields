@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { Home as HomeIcon } from '@mui/icons-material';
-import './App.css';
+import React, { useState } from 'react'
+import { Home as HomeIcon } from '@mui/icons-material'
+import './App.css'
 
-function App() {
-  const [name, setName] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const App = () => {
+  const [name, setName] = useState('')
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const handleLogin = () => {
-      setIsLoggedIn(true);
-  };
+    setIsLoggedIn(true)
+  }
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
-    setName('');
-  };
+    setIsLoggedIn(false)
+    setName('')
+  }
 
   return (
     <div className="App">
@@ -28,13 +28,17 @@ function App() {
               onChange={e => setName(e.target.value)}
               className="name-input"
             />
-            <button onClick={handleLogin} className="login-button">Login</button>
+            <button type="button" onClick={handleLogin} className="login-button">Login</button>
           </>
         )}
         {isLoggedIn && (
           <>
-            <h1>Hello, {name}!</h1>
-            <button onClick={handleLogout} className="logout-button">Logout</button>
+            <h1>
+              Hello,
+              {name}
+              !
+            </h1>
+            <button type="button" onClick={handleLogout} className="logout-button">Logout</button>
           </>
         )}
       </header>
@@ -45,12 +49,17 @@ function App() {
           </div>
         ) : (
           <div className="welcome-container">
-            <p>Hey there <strong>{name}</strong>, great that you are here. Let me show you around and tell you what you can do in the App.</p>
+            <p>
+              Hey there
+              <strong>{name}</strong>
+              , great that you are here.
+              Let me show you around and tell you what you can do in the App.
+            </p>
           </div>
         )}
       </main>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
