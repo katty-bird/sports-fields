@@ -50,7 +50,7 @@ const App = () => {
         ) : (
           <div className="welcome-container">
             <p>
-              Hey there
+              Hey there&nbsp;
               <strong>{name}</strong>
               , great that you are here.
               Let me show you around and tell you what you can do in the App.
