@@ -28,6 +28,14 @@ secret.json
 .firebase/
 .firebaserc
 firebase.json
-firebase.json
-.firebaserc
 .github/workflows/firebase-hosting-merge.yml
+.firebaserc
+firebase-debug.log
+package.json
+firebase.json
+yarn.lock
+.gitignore
+.github/workflows/firebase-hosting-merge.yml
+.github/workflows/firebase-hosting-pull-request.yml
+public/404.html
+src/index.js
