@@ -6,7 +6,7 @@ import OverviewTab from './OverviewTab'
 import ReviewsTab from './ReviewsTab'
 
 const InfoTabs = () => {
-  const [value, setValue] = React.useState(1)
+  const [value, setValue] = React.useState(0)
 
   const handleChange = (e, newValue) => {
     setValue(newValue)

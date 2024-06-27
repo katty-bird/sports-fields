@@ -6,11 +6,11 @@ import {
   Card,
   CardHeader,
   IconButton,
-  CardActionArea,
   Grid,
   Button,
   CardActions,
-  CardContent
+  CardContent,
+  Skeleton
 } from '@mui/material'
 import CardMedia from '@mui/material/CardMedia'
 import InfoTabs from './InfoTabs'
@@ -23,9 +23,9 @@ const InfoPage = () => (
     alignItems="center"
     justify="center"
   >
-    <Card sx={{ minWidth: 600, p: 5 }}>
+    <Card sx={{ mx: 'auto', width: 500, p: 5 }}>
       <CardActions>
-        <IconButton id="back-button" aria-label="back" size="large">
+        <IconButton id="back-button" size="large">
           <ChevronLeftIcon />
         </IconButton>
       </CardActions>
@@ -44,13 +44,14 @@ const InfoPage = () => (
         </Button>
       </CardActions>
       <CardContent>
-        <CardMedia
+        {/* <CardMedia
           id="info-media"
           component="img"
           height="200"
-          image="../assets/placeholder.png"
+          image="placeholder.png"
           alt="placeholder"
-        />
+        /> */}
+        <Skeleton variant="rounded" width={500} height={200} />
         <InfoTabs id="info-tabs" />
       </CardContent>
     </Card>
