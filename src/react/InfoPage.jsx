@@ -44,13 +44,6 @@ const InfoPage = () => (
         </Button>
       </CardActions>
       <CardContent>
-        {/* <CardMedia
-          id="info-media"
-          component="img"
-          height="200"
-          image="placeholder.png"
-          alt="placeholder"
-        /> */}
         <Skeleton variant="rounded" width={500} height={200} />
         <InfoTabs id="info-tabs" />
       </CardContent>

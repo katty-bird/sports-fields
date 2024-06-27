@@ -2,51 +2,38 @@ import * as React from 'react'
 import {
   Rating,
   Card,
-  CardHeader,
   Grid,
   Button,
   CardActions,
-  CardContent,
-  TextField,
-  Avatar,
-  Skeleton
+  TextField
 } from '@mui/material'
+import CommentCard from './CommentCard'
 
 const ReviewsTab = () => (
   <Grid
     container
     direction="column"
     justifyContent="flex-start"
-    alignItems="flex-start"
+    alignItems="stretch"
     spacing={3}
   >
     <Grid item>
-      <Card id="review-input">
-        <CardActions>
+      <Card id="review-input" variant="outlined">
+        <CardActions style={{ display: 'flex', flexDirection: 'column' }}>
           <TextField
             required
+            multiline
+            fullWidth
             label="Enter your review here!"
+            style={{ marginBottom: '10px' }}
           />
-          <Rating value={null} />
-          <Button variant="contained">Send review</Button>
+          <Rating value={null} size="large" precision={0.5} style={{ marginBottom: '10px' }} />
+          <Button variant="contained" style={{ marginBottom: '10px' }}>Send review</Button>
         </CardActions>
       </Card>
     </Grid>
-    <Grid item>
-      <Card>
-        <CardHeader
-          title="Anonymous User"
-          subheader="18.01.2024"
-        >
-          <Avatar>
-            A
-          </Avatar>
-        </CardHeader>
-        <CardContent>
-          <Skeleton variant="text" sx={{ fontSize: '3rem' }} />
-        </CardContent>
-      </Card>
-    </Grid>
+    <CommentCard />
+    <CommentCard />
   </Grid>
 )
 
