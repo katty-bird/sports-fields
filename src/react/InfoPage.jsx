@@ -1,24 +1,47 @@
 import * as React from 'react'
-import IconButton from '@mui/material/IconButton'
-import Box from '@mui/material/Box'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import {
+  Rating,
+  Card,
+  CardHeader,
+  IconButton,
+  CardActionArea,
+  Grid
+} from '@mui/material'
+import CardMedia from '@mui/material/CardMedia'
+import InfoTabs from './InfoTabs'
 
-const InfoPage = ({ overviewSelected }) => (
-  <Box
-    id="header"
-    sx={() => ({
-      width: '100%'
-    })}
+const InfoPage = () => (
+  <Grid
+    container
+    spacing={0}
+    direction="column"
+    alignItems="center"
+    justify="center"
+    style={{ minHeight: '100vh' }}
   >
-    <IconButton id="back-button" aria-label="back">
-      <ChevronLeftIcon />
-    </IconButton>
-    {
-            overviewSelected
-            && <p>sfsf</p>
-    }
-
-  </Box>
+    <Card sx={{ maxWidth: 500 }} centered>
+      <IconButton id="back-button" aria-label="back" size="large">
+        <ChevronLeftIcon />
+      </IconButton>
+      <CardHeader
+        title="Sample Football Field"
+        subheader="Hauptstraße 17 12529 Berlin"
+        action={
+          <Rating value={4} readOnly />
+        }
+      />
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="200"
+          image="./assets/react-logos/react-logo-1.png"
+          alt="placeholder"
+        />
+      </CardActionArea>
+      <InfoTabs />
+    </Card>
+  </Grid>
 )
 
 export default InfoPage
