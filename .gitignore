@@ -23,3 +23,11 @@ yarn-debug.log*
 yarn-error.log*
 
 secret.json
+
+# Firebase cache
+.firebase/
+.firebaserc
+firebase.json
+firebase.json
+.firebaserc
+.github/workflows/firebase-hosting-merge.yml
