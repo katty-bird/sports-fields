@@ -12,7 +12,6 @@ import {
   CardContent,
   Skeleton
 } from '@mui/material'
-import CardMedia from '@mui/material/CardMedia'
 import InfoTabs from './InfoTabs'
 
 const InfoPage = () => (
