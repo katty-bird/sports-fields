@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react'
-
+import { getApp } from 'firebase/app'
 import {
-  query, where, getDocs, limit, collectionGroup
+  query, where, getDocs, limit, collectionGroup, getFirestore
 } from 'firebase/firestore'
 import { Skeleton } from '@mui/material'
 import InfoPage from './InfoPage'
-// eslint-disable-next-line import/no-cycle
-import db from '../index'
 
 const Home = () => {
   const [sportfield, setSportfield] = useState(null)
 
-  const sportfieldCollectionRef = collectionGroup(db, 'sport-fields')
-
   useEffect(() => {
     const getSportFieldData = async () => {
+      const db = getFirestore(getApp())
+      const sportfieldCollectionRef = collectionGroup(db, 'sport-fields')
       const q = query(
         sportfieldCollectionRef,
         where('name', '==', 'Sample Football Field'),
@@ -27,6 +25,7 @@ const Home = () => {
 
     getSportFieldData()
   }, [])
+
   return (
     <div>
       {sportfield ? (

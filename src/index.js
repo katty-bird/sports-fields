@@ -2,25 +2,22 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 
 import { initializeApp } from 'firebase/app'
-import { getFirestore } from 'firebase/firestore'
 
 // eslint-disable-next-line import/no-cycle
 import Home from './react/Home'
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyDyoKt9RQZzU-MTOYvhTjdpw2Pgp5Zp6wA',
-  authDomain: 'mhealth-7f01c.firebaseapp.com',
-  projectId: 'mhealth-7f01c',
-  storageBucket: 'mhealth-7f01c.appspot.com',
-  messagingSenderId: '927986505231',
-  appId: '1:927986505231:web:6b19e3872788842a6e357a'
+  apiKey: 'AIzaSyD8NZgF92WRKE4tU25DvyfGKkR_xezQq-c',
+  authDomain: 'sportsfields-8822f.firebaseapp.com',
+  projectId: 'sportsfields-8822f',
+  storageBucket: 'sportsfields-8822f.appspot.com',
+  messagingSenderId: '676783363875',
+  appId: '1:676783363875:web:0b91c585d679883b791e96'
 }
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig)
-
-// Initialize Cloud Firestore and get a reference to the service
-const db = getFirestore(app)
+initializeApp(firebaseConfig)
 
 const rootDomElement = document.getElementById('root')
 const root = ReactDOM.createRoot(rootDomElement)
@@ -28,5 +25,3 @@ const root = ReactDOM.createRoot(rootDomElement)
 // We use createElement to make this a pure JavaScript file,
 // because we don't like JSX in our .js files ;)
 root.render(React.createElement(Home))
-
-export default db
