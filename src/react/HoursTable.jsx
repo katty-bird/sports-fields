@@ -5,11 +5,10 @@ import {
 
 // eslint-disable-next-line react/prop-types
 const HoursTable = ({ fieldOpeningHours }) => {
-  // Use the fieldOpeningHours array to create table rows
   const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
   // eslint-disable-next-line react/prop-types
   const tableRows = fieldOpeningHours.map((openingHours, index) => {
-    const dayOfWeek = weekdays[(index)] // Adjust for Sunday as index 0
+    const dayOfWeek = weekdays[(index)]
     return (
       <TableRow>
         <TableCell>{dayOfWeek}</TableCell>
