@@ -1,64 +1,31 @@
-// ../hooks/useFirebaseAuth.js
-
 import { useState } from 'react'
-import firebase from 'firebase/app'
-import 'firebase/auth'
 
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+
+// Hooks always star with "use".
+// They can contain other hooks.
 const useFirebaseAuth = () => {
-  const [loading, setLoading] = useState(true)
-  const [user, setUser] = useState(null)
+  // Internal state of the hook.
+  const [loading, setLoading] = useState(false)
+  const [user, setUser] = useState()
 
-  // Initialize Firebase app if not already initialized
-  if (!firebase.apps.length) {
-    firebase.initializeApp({
-      apiKey: 'AIzaSyD8NZgF92WRKE4tU25DvyfGKkR_xezQq-c',
-      authDomain: 'sportsfields-8822f.firebaseapp.com',
-      projectId: 'sportsfields-8822f',
-      storageBucket: 'sportsfields-8822f.appspot.com',
-      messagingSenderId: '676783363875',
-      appId: '1:676783363875:web:0b91c585d679883b791e96'
-    })
-  }
-
-  // Handle login
-  const loginUser = (username, password) => {
+  // The async logic of this hook.
+  // It fetches data from a remote api and communicates it's progress through useState hooks.
+  const loginUser = async (username, password) => {
     setLoading(true)
-    firebase.auth().signInWithEmailAndPassword(username, password)
-      .then(userCredential => {
-        setUser(userCredential.user)
-        setLoading(false)
-      })
-      .catch(error => {
-        console.error('Error logging in:', error)
-        setLoading(false)
-      })
-  }
 
-  // Handle logout
-  const logoutUser = () => {
-    firebase.auth().signOut()
-      .then(() => {
-        setUser(null)
-      })
-      .catch(error => {
-        console.error('Error logging out:', error)
-      })
-  }
+    const r = await signInWithEmailAndPassword(getAuth(), username, password)
+    setUser(r.user)
+    // const weather = await r.json()
 
-  // Check authentication state on mount
-  // eslint-disable-next-line no-shadow
-  firebase.auth().onAuthStateChanged(user => {
-    if (user) {
-      setUser(user)
-    } else {
-      setUser(null)
-    }
+    // setUser(newUser)
     setLoading(false)
-  })
-
-  return {
-    loading, user, loginUser, logoutUser
   }
+
+  // The hook returns the result of its operations in a JavaScript Object.
+  // In this case the Object is used like a key-value store.
+  // This is a very common use-case of objects in JavaScript.
+  return { loading, user, loginUser }
 }
 
 export default useFirebaseAuth

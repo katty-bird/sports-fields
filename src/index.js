@@ -7,12 +7,12 @@ import { getFirestore } from 'firebase/firestore'
 import Home2 from './react/Home2'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDyoKt9RQZzU-MTOYvhTjdpw2Pgp5Zp6wA',
-  authDomain: 'mhealth-7f01c.firebaseapp.com',
-  projectId: 'mhealth-7f01c',
-  storageBucket: 'mhealth-7f01c.appspot.com',
-  messagingSenderId: '927986505231',
-  appId: '1:927986505231:web:6b19e3872788842a6e357a'
+  apiKey: 'AIzaSyD8NZgF92WRKE4tU25DvyfGKkR_xezQq-c',
+  authDomain: 'sportsfields-8822f.firebaseapp.com',
+  projectId: 'sportsfields-8822f',
+  storageBucket: 'sportsfields-8822f.appspot.com',
+  messagingSenderId: '676783363875',
+  appId: '1:676783363875:web:0b91c585d679883b791e96'
 }
 
 // Initialize Firebase

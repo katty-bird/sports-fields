@@ -1,6 +1,7 @@
-// PersonalAccount.jsx
+// src/components/PersonalAccount.jsx
 
 import React from 'react'
+import PropTypes from 'prop-types'
 import {
   Card,
   CardHeader,
@@ -13,17 +14,9 @@ import {
   Typography,
   Rating
 } from '@mui/material'
-import InfoTabs from './InfoTabs'
 
 const PersonalAccount = ({ user, onLogout }) => (
-  <Grid
-    container
-    spacing={0}
-    direction="column"
-    alignItems="center"
-    justifyContent="center"
-    style={{ minHeight: '100vh' }}
-  >
+  <Grid container spacing={0} direction="column" alignItems="center" justifyContent="center" style={{ minHeight: '100vh' }}>
     <Card sx={{ mx: 'auto', width: 500, p: 2 }}>
       <CardActions>
         <IconButton id="back-button" size="large" onClick={onLogout}>
@@ -62,7 +55,6 @@ const PersonalAccount = ({ user, onLogout }) => (
           {' '}
           123 Sample Street, Sample City
         </Typography>
-        <InfoTabs id="personal-info-tabs" />
       </CardContent>
 
       <CardActions>
@@ -73,5 +65,14 @@ const PersonalAccount = ({ user, onLogout }) => (
     </Card>
   </Grid>
 )
+
+PersonalAccount.propTypes = {
+  user: PropTypes.shape({
+    displayName: PropTypes.string,
+    email: PropTypes.string,
+    photoURL: PropTypes.string
+  }).isRequired,
+  onLogout: PropTypes.func.isRequired
+}
 
 export default PersonalAccount
