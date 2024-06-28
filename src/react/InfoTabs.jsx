@@ -5,7 +5,8 @@ import Tabs from '@mui/material/Tabs'
 import OverviewTab from './OverviewTab'
 import ReviewsTab from './ReviewsTab'
 
-const InfoTabs = () => {
+// eslint-disable-next-line react/prop-types
+const InfoTabs = ({ fieldOpeningHours, fieldSportInfo, fieldSanitaryInfo }) => {
   const [value, setValue] = React.useState(0)
 
   const handleChange = (e, newValue) => {
@@ -27,7 +28,11 @@ const InfoTabs = () => {
       {
         value === 0
         && (
-          <OverviewTab />
+          <OverviewTab
+            fieldOpeningHours={fieldOpeningHours}
+            fieldSportInfo={fieldSportInfo}
+            fieldSanitaryInfo={fieldSanitaryInfo}
+          />
         )
       }
       {

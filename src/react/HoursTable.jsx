@@ -3,39 +3,28 @@ import {
   Table, TableBody, TableCell, TableRow
 } from '@mui/material'
 
-const HoursTable = () => (
-  <Table size="small">
-    <TableBody>
+// eslint-disable-next-line react/prop-types
+const HoursTable = ({ fieldOpeningHours }) => {
+  // Use the fieldOpeningHours array to create table rows
+  const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+  // eslint-disable-next-line react/prop-types
+  const tableRows = fieldOpeningHours.map((openingHours, index) => {
+    const dayOfWeek = weekdays[(index)] // Adjust for Sunday as index 0
+    return (
       <TableRow>
-        <TableCell>Monday</TableCell>
-        <TableCell>9:00 - 20:00</TableCell>
+        <TableCell>{dayOfWeek}</TableCell>
+        <TableCell>{openingHours}</TableCell>
       </TableRow>
-      <TableRow>
-        <TableCell>Tuesday</TableCell>
-        <TableCell>9:00 - 20:00</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>Wednesday</TableCell>
-        <TableCell>9:00 - 20:00</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>Thursday</TableCell>
-        <TableCell>9:00 - 20:00</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>Friday</TableCell>
-        <TableCell>9:00 - 20:00</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>Saturday</TableCell>
-        <TableCell>9:00 - 20:00</TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>Sunday</TableCell>
-        <TableCell>9:00 - 20:00</TableCell>
-      </TableRow>
-    </TableBody>
-  </Table>
-)
+    )
+  })
+
+  return (
+    <Table size="small">
+      <TableBody>
+        {tableRows}
+      </TableBody>
+    </Table>
+  )
+}
 
 export default HoursTable

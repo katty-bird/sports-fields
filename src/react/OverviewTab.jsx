@@ -5,7 +5,8 @@ import {
 import HoursTable from './HoursTable'
 import InfoChip from './InfoChip'
 
-const OverviewTab = () => (
+// eslint-disable-next-line react/prop-types
+const OverviewTab = ({ fieldOpeningHours, fieldSportInfo, fieldSanitaryInfo }) => (
   <Grid
     container
     direction="column"
@@ -13,13 +14,13 @@ const OverviewTab = () => (
     alignItems="flex-start"
     spacing={3}
   >
-    <InfoChip title="Sport" />
-    <InfoChip title="Hygiene" />
+    <InfoChip title="Sport" info={fieldSportInfo} />
+    <InfoChip title="Sanitary" info={fieldSanitaryInfo} />
     <Grid item>
       <Typography variant="h6">
         Opening Hours
       </Typography>
-      <HoursTable />
+      <HoursTable fieldOpeningHours={fieldOpeningHours} />
     </Grid>
   </Grid>
 )
