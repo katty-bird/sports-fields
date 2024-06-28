@@ -5,11 +5,13 @@ import {
 
 const GoogleMap = () => {
   // const position = { lat: 52.520008, lng: 13.404954 };
-  const [zoom, setZoom] = useState(13)
+  const [zoom, setZoom] = useState(17)
   const [open, setOpen] = useState(false)
   const [position, setPosition] = useState({ lat: 52.520008, lng: 13.404954 })
   // eslint-disable-next-line no-console
   console.log('position', position)
+  // eslint-disable-next-line no-console
+  console.log(process.env.REACT_APP_MAP_ID)
 
   return (
     <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
