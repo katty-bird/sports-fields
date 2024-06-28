@@ -4,8 +4,7 @@ import ReactDOM from 'react-dom/client'
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
 
-// eslint-disable-next-line import/no-cycle
-import Home from './react/Home'
+import Home2 from './react/Home2'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDyoKt9RQZzU-MTOYvhTjdpw2Pgp5Zp6wA',
@@ -27,6 +26,6 @@ const root = ReactDOM.createRoot(rootDomElement)
 
 // We use createElement to make this a pure JavaScript file,
 // because we don't like JSX in our .js files ;)
-root.render(React.createElement(Home))
+root.render(React.createElement(Home2))
 
 export default db

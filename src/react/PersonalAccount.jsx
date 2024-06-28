@@ -1,3 +1,5 @@
+// PersonalAccount.jsx
+
 import React from 'react'
 import {
   Card,
@@ -13,7 +15,7 @@ import {
 } from '@mui/material'
 import InfoTabs from './InfoTabs'
 
-const PersonalAccount = ({user, onLogout}) => (
+const PersonalAccount = ({ user, onLogout }) => (
   <Grid
     container
     spacing={0}
@@ -25,7 +27,6 @@ const PersonalAccount = ({user, onLogout}) => (
     <Card sx={{ mx: 'auto', width: 500, p: 2 }}>
       <CardActions>
         <IconButton id="back-button" size="large" onClick={onLogout}>
-          {/* Back */}
           Back
         </IconButton>
       </CardActions>

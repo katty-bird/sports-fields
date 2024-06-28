@@ -1,3 +1,5 @@
+// Home2.jsx
+
 import React, { useState } from 'react'
 import LoginForm from './LogInForm2'
 import PersonalAccount from './PersonalAccount'
