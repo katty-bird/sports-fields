@@ -15,7 +15,8 @@ const Home = () => {
       const sportfieldCollectionRef = collectionGroup(db, 'sport-fields')
       const q = query(
         sportfieldCollectionRef,
-        where('name', '==', 'Sample Football Field'),
+        where('pluscode', '==', 'FG6P+9W Berlin'),
+        // where('name', '==', 'Sample Football Field'),
         limit(1)
       )
       const querySnapshot = await getDocs(q)

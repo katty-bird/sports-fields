@@ -18,8 +18,7 @@ import InfoTabs from './InfoTabs'
 const InfoPage = ({ sportfield }) => {
   const fieldName = sportfield.name
   const fieldAddress = sportfield.address
-  // const fieldLat = sportfield.lat
-  // const fieldLong = sportfield.long
+  const fieldPluscode = sportfield.pluscode
   const fieldOpeningHours = sportfield.openinghours
   const fieldSportInfo = sportfield.sportinfo
   const fieldSanitaryInfo = sportfield.sanitaryinfo
