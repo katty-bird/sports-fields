@@ -17,5 +17,5 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SPORTSFIELDS_8822F }}
-          projectId: sportsfields-8822f
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MHEALTH_8822F }}
+          projectId: mhealth-8822f

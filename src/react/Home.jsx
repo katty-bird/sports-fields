@@ -1,62 +1,40 @@
-import React, { useState } from 'react'
-import LoginForm from './LoginForm'
-import useFirebaseAuth from '../hooks/useFirebaseAuth'
+import React, { useState, useEffect } from 'react'
+import { getApp } from 'firebase/app'
+import {
+  query, where, getDocs, limit, collectionGroup, getFirestore
+} from 'firebase/firestore'
+import { Skeleton } from '@mui/material'
 import GoogleMap from './GoogleMap'
-
-// import useWeather from '../hooks/useWeather'
+import InfoPage from './InfoPage'
 
 const Home = () => {
-  const [username, setUsername] = useState('')
-  const [password, setPassord] = useState('')
+  const [sportfield, setSportfield] = useState(null)
 
-  const { loading, user, loginUser } = useFirebaseAuth()
+  useEffect(() => {
+    const getSportFieldData = async () => {
+      const db = getFirestore(getApp())
+      const sportfieldCollectionRef = collectionGroup(db, 'sport-fields')
+      const q = query(
+        sportfieldCollectionRef,
+        where('pluscode', '==', 'FG6P+9W Berlin'),
+        // where('name', '==', 'Sample Football Field'),
+        limit(1)
+      )
+      const querySnapshot = await getDocs(q)
+      const selectedSportField = querySnapshot.docs[0].data()
+      setSportfield(selectedSportField)
+    }
 
-  const handleLogin = () => {
-    loginUser(username, password)
-  }
+    getSportFieldData()
+  }, [])
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%'
-      }}
-    >
-      <h1>
-        Welcome to the best Auth-App on the internet:
-        {user?.email}
-      </h1>
-      <div
-        style={{
-          width: '66%',
-          padding: '15px',
-          marginBottom: '10px',
-          background: '#89cff0',
-          borderRadius: '15px'
-        }}
-      >
-        <h3 style={{ margin: 0 }}>
-          Please login
-        </h3>
-        {
-          loading
-            && <b>Loading ...</b>
-        }
-        {/* {
-          !loading
-            && <WeatherGraph weather={weather} />
-        } */}
-      </div>
-      <LoginForm
-        username={username}
-        password={password}
-        onUsernameChange={setUsername}
-        onPasswordChange={setPassord}
-        onLoginClicked={handleLogin}
-      />
+    <div>
+      {sportfield ? (
+        <InfoPage sportfield={sportfield} />
+      ) : (
+        <Skeleton variant="text" />
+      )}
       <div style={{ width: '100%', marginTop: '20px' }}>
         <GoogleMap />
       </div>

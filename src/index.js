@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom/client'
 
 import { initializeApp } from 'firebase/app'
 
+// eslint-disable-next-line import/no-cycle
 import Home from './react/Home'
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: 'AIzaSyD8NZgF92WRKE4tU25DvyfGKkR_xezQq-c',
   authDomain: 'sportsfields-8822f.firebaseapp.com',
