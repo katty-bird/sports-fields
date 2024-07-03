@@ -15,13 +15,16 @@ import {
 } from '@mui/material'
 import InfoTabs from './InfoTabs'
 
-const InfoPage = ({ sportfield }) => {
+const InfoPage = ({ sportfield, onClose }) => {
   const fieldName = sportfield.name
   const fieldAddress = sportfield.address
-  const fieldPluscode = sportfield.pluscode
+  // const fieldPluscode = sportfield.pluscode
   const fieldOpeningHours = sportfield.openinghours
   const fieldSportInfo = sportfield.sportinfo
   const fieldSanitaryInfo = sportfield.sanitaryinfo
+  const handleBackClick = () => {
+    onClose()
+  }
   return (
     <Grid
       container
@@ -32,7 +35,7 @@ const InfoPage = ({ sportfield }) => {
     >
       <Card sx={{ mx: 'auto', width: 500, p: 5 }}>
         <CardActions>
-          <IconButton id="back-button" size="large">
+          <IconButton id="back-button" size="large" onClick={handleBackClick}>
             <ChevronLeftIcon />
           </IconButton>
         </CardActions>
