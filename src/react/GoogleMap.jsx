@@ -8,11 +8,12 @@ import {
 } from 'firebase/firestore'
 import { Button } from '@mui/material'
 import InfoPage from './InfoPage'
+import ReverseGeocode from '../hooks/reverseGeocode'
 
 const GoogleMap = () => {
   const [zoom, setZoom] = useState(17)
   const [open, setOpen] = useState(false)
-  const [position, setPosition] = useState({ lat: 52.520008, lng: 13.404954 })
+  const [position, setPosition] = useState({ lat: 52.45736432616367, lng: 13.519293310710195 })
   // eslint-disable-next-line no-console
   console.log('position', position)
   // eslint-disable-next-line no-console
@@ -39,7 +40,6 @@ const GoogleMap = () => {
       const selectedSportField = querySnapshot.docs[0].data()
       setSportfield(selectedSportField)
     }
-
     getSportFieldData()
   }, [])
 
@@ -50,6 +50,7 @@ const GoogleMap = () => {
       )}
       {!infopage && (
         <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
+          <ReverseGeocode latlong={position} />
           <div style={{ height: '700px', width: '100%' }}>
             <Map
               zoom={zoom}
