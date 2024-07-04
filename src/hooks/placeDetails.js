@@ -9,7 +9,8 @@ const PlaceDetails = ({
   setPlaceOpeningHours,
   setPlaceRating,
   setPlaceIsOpen,
-  setPlacePhoto
+  setPlacePhoto,
+  setPlaceReviews
 }) => {
   const map = useMap()
   const placesLibrary = useMapsLibrary('places')
@@ -28,13 +29,14 @@ const PlaceDetails = ({
     if (!placesService) return
     placesService.getDetails(request, (place, status) => {
       if (status === placesLibrary.PlacesServiceStatus.OK) {
-        console.log(place)
+        // console.log(place.reviews)
         setPlaceName(place.name)
         setPlaceAddress(place.formatted_address)
         setPlaceOpeningHours(place.current_opening_hours.weekday_text)
         setPlaceRating(place.rating)
         setPlaceIsOpen(place.current_opening_hours.open_now)
         setPlacePhoto(place.photos[0])
+        setPlaceReviews(place.reviews)
       }
     })
   })

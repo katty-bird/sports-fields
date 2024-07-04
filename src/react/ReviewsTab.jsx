@@ -9,32 +9,34 @@ import {
 } from '@mui/material'
 import CommentCard from './CommentCard'
 
-const ReviewsTab = () => (
-  <Grid
-    container
-    direction="column"
-    justifyContent="flex-start"
-    alignItems="stretch"
-    spacing={3}
-  >
-    <Grid item>
-      <Card id="review-input" variant="outlined">
-        <CardActions style={{ display: 'flex', flexDirection: 'column' }}>
-          <TextField
-            required
-            multiline
-            fullWidth
-            label="Enter your review here!"
-            style={{ marginBottom: '10px' }}
-          />
-          <Rating value={null} size="large" precision={0.5} style={{ marginBottom: '10px' }} />
-          <Button variant="contained" style={{ marginBottom: '10px' }}>Send review</Button>
-        </CardActions>
-      </Card>
+// eslint-disable-next-line react/prop-types
+const ReviewsTab = ({ fieldReviews }) => (
+  <div>
+    <Grid
+      container
+      direction="column"
+      justifyContent="flex-start"
+      alignItems="stretch"
+      spacing={3}
+    >
+      <Grid item>
+        <Card id="review-input" variant="outlined">
+          <CardActions style={{ display: 'flex', flexDirection: 'column' }}>
+            <TextField
+              required
+              multiline
+              fullWidth
+              label="Enter your review here!"
+              style={{ marginBottom: '10px' }}
+            />
+            <Rating value={null} size="large" precision={0.5} style={{ marginBottom: '10px' }} />
+            <Button variant="contained" style={{ marginBottom: '10px' }}>Send review</Button>
+          </CardActions>
+        </Card>
+      </Grid>
     </Grid>
-    <CommentCard />
-    <CommentCard />
-  </Grid>
+    <CommentCard fieldReviews={fieldReviews} />
+  </div>
 )
 
 export default ReviewsTab

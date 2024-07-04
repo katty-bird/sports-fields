@@ -24,8 +24,10 @@ const InfoPage = ({ sportfield, onClose }) => {
   const fieldIsOpen = sportfield[3]
   const fieldOpeningHours = sportfield[4]
   const fieldPhoto = sportfield[5]
+  const fieldReviews = sportfield[6]
   const fieldSportInfo = ['Basketball', 'Football']
   const fieldSanitaryInfo = ['WC', 'WLAN']
+  // console.log(fieldReviews)
   const handleBackClick = () => {
     onClose()
   }
@@ -89,6 +91,7 @@ const InfoPage = ({ sportfield, onClose }) => {
             fieldOpeningHours={fieldOpeningHours}
             fieldSportInfo={fieldSportInfo}
             fieldSanitaryInfo={fieldSanitaryInfo}
+            fieldReviews={fieldReviews}
           />
         </CardContent>
       </Card>

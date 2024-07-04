@@ -23,6 +23,7 @@ const GoogleMap = () => {
   const [placeRating, setPlaceRating] = useState()
   const [placeIsOpen, setPlaceIsOpen] = useState()
   const [placePhoto, setPlacePhoto] = useState()
+  const [placeReviews, setPlaceReviews] = useState([])
 
   // const [sportfield, setSportfield] = useState(null)
 
@@ -46,7 +47,6 @@ const GoogleMap = () => {
   return (
     <div>
       {infopage && (
-        // <Button onClick={closeInfoPage}>Info page placeholder</Button>
         <InfoPage
           sportfield={[
             placeName,
@@ -54,7 +54,8 @@ const GoogleMap = () => {
             placeRating,
             placeIsOpen,
             placeOpeningHours,
-            placePhoto
+            placePhoto,
+            placeReviews
           ]}
           onClose={closeInfoPage}
         />
@@ -87,6 +88,7 @@ const GoogleMap = () => {
                     setPlaceRating={setPlaceRating}
                     setPlaceIsOpen={setPlaceIsOpen}
                     setPlacePhoto={setPlacePhoto}
+                    setPlaceReviews={setPlaceReviews}
                   />
                   {
                     placeIsOpen === true

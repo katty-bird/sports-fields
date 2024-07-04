@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import * as React from 'react'
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
@@ -6,7 +7,12 @@ import OverviewTab from './OverviewTab'
 import ReviewsTab from './ReviewsTab'
 
 // eslint-disable-next-line react/prop-types
-const InfoTabs = ({ fieldOpeningHours, fieldSportInfo, fieldSanitaryInfo }) => {
+const InfoTabs = ({
+  fieldOpeningHours,
+  fieldSportInfo,
+  fieldSanitaryInfo,
+  fieldReviews
+}) => {
   const [value, setValue] = React.useState(0)
 
   const handleChange = (e, newValue) => {
@@ -38,7 +44,7 @@ const InfoTabs = ({ fieldOpeningHours, fieldSportInfo, fieldSanitaryInfo }) => {
       {
         value === 1
         && (
-          <ReviewsTab />
+          <ReviewsTab fieldReviews={fieldReviews} />
         )
       }
     </div>
