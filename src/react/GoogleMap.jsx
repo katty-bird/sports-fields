@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import {
-  APIProvider, Map, AdvancedMarker, Pin, InfoWindow
+  APIProvider, Map, AdvancedMarker, Pin, InfoWindow, useMap, useMapsLibrary
 } from '@vis.gl/react-google-maps'
 import { getApp } from 'firebase/app'
 import {
@@ -9,48 +10,46 @@ import {
 import { Button } from '@mui/material'
 import InfoPage from './InfoPage'
 import ReverseGeocode from '../hooks/reverseGeocode'
+import PlaceDetails from '../hooks/placeDetails'
+import getDataFromFirestore from '../hooks/getDataFromFirestore'
 
 const GoogleMap = () => {
   const [zoom, setZoom] = useState(17)
   const [open, setOpen] = useState(false)
   const [position, setPosition] = useState({ lat: 52.45736432616367, lng: 13.519293310710195 })
-  // eslint-disable-next-line no-console
-  console.log('position', position)
-  // eslint-disable-next-line no-console
-  console.log(process.env.REACT_APP_MAP_ID)
 
   const [infopage, setInfopage] = useState(false)
   const closeInfoPage = () => {
     setInfopage(false)
   }
 
-  const [sportfield, setSportfield] = useState(null)
+  // const [sportfield, setSportfield] = useState(null)
 
-  useEffect(() => {
-    const getSportFieldData = async () => {
-      const db = getFirestore(getApp())
-      const sportfieldCollectionRef = collectionGroup(db, 'sport-fields')
-      const q = query(
-        sportfieldCollectionRef,
-        where('pluscode', '==', 'FG6P+9W Berlin'),
-        // where('name', '==', 'Sample Football Field'),
-        limit(1)
-      )
-      const querySnapshot = await getDocs(q)
-      const selectedSportField = querySnapshot.docs[0].data()
-      setSportfield(selectedSportField)
-    }
-    getSportFieldData()
-  }, [])
+  // useEffect(() => {
+  //   const getSportFieldData = async () => {
+  //     const db = getFirestore(getApp())
+  //     const sportfieldCollectionRef = collectionGroup(db, 'sport-fields')
+  //     const q = query(
+  //       sportfieldCollectionRef,
+  //       where('pluscode', '==', 'FG6P+9W Berlin'),
+  //       // where('name', '==', 'Sample Football Field'),
+  //       limit(1)
+  //     )
+  //     const querySnapshot = await getDocs(q)
+  //     const selectedSportField = querySnapshot.docs[0].data()
+  //     setSportfield(selectedSportField)
+  //   }
+  //   getSportFieldData()
+  // }, [])
 
   return (
     <div>
       {infopage && (
-        <InfoPage sportfield={sportfield} onClose={closeInfoPage} />
+        <p>Info page placeholder</p>
+        // <InfoPage sportfield={sportfield} onClose={closeInfoPage} />
       )}
       {!infopage && (
         <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
-          <ReverseGeocode latlong={position} />
           <div style={{ height: '700px', width: '100%' }}>
             <Map
               zoom={zoom}
@@ -73,6 +72,7 @@ const GoogleMap = () => {
                 </InfoWindow>
               )}
             </Map>
+            <PlaceDetails placeId="ChIJWc9EQTZJqEcRTOEDNragDJM" />
           </div>
         </APIProvider>
       )}
