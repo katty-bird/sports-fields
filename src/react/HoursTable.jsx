@@ -5,14 +5,16 @@ import {
 
 // eslint-disable-next-line react/prop-types
 const HoursTable = ({ fieldOpeningHours }) => {
-  const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
   // eslint-disable-next-line react/prop-types
   const tableRows = fieldOpeningHours.map((openingHours, index) => {
-    const dayOfWeek = weekdays[(index)]
+    const parts = openingHours.split(':')
+    const dayOfWeek = parts[0]
+    const hours = parts[1]?.trim() || ''
     return (
-      <TableRow>
+      // eslint-disable-next-line react/no-array-index-key
+      <TableRow key={index}>
         <TableCell>{dayOfWeek}</TableCell>
-        <TableCell>{openingHours}</TableCell>
+        <TableCell>{hours}</TableCell>
       </TableRow>
     )
   })

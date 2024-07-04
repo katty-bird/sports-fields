@@ -11,17 +11,21 @@ import {
   Button,
   CardActions,
   CardContent,
-  Skeleton
+  Skeleton,
+  Chip,
+  CardMedia
 } from '@mui/material'
 import InfoTabs from './InfoTabs'
 
 const InfoPage = ({ sportfield, onClose }) => {
-  const fieldName = sportfield.name
-  const fieldAddress = sportfield.address
-  // const fieldPluscode = sportfield.pluscode
-  const fieldOpeningHours = sportfield.openinghours
-  const fieldSportInfo = sportfield.sportinfo
-  const fieldSanitaryInfo = sportfield.sanitaryinfo
+  const fieldName = sportfield[0]
+  const fieldAddress = sportfield[1]
+  const fieldRating = sportfield[2]
+  const fieldIsOpen = sportfield[3]
+  const fieldOpeningHours = sportfield[4]
+  const fieldPhoto = sportfield[5]
+  const fieldSportInfo = ['Basketball', 'Football']
+  const fieldSanitaryInfo = ['WC', 'WLAN']
   const handleBackClick = () => {
     onClose()
   }
@@ -45,16 +49,41 @@ const InfoPage = ({ sportfield, onClose }) => {
           title={fieldName}
           subheader={fieldAddress}
           action={
-            <Rating value={4} readOnly />
+            <Rating value={fieldRating} readOnly />
           }
         />
         <CardActions>
+          {
+            fieldIsOpen === true
+            && <Chip label="Now Open" color="success" />
+          }
+          {
+            fieldIsOpen === false
+            && <Chip label="Closed" color="error" />
+          }
           <Button id="directions-button" variant="contained" startIcon={<DirectionsIcon />}>
             Get Directions
           </Button>
         </CardActions>
+        {
+          fieldPhoto.getUrl
+          && (
+          <CardMedia
+            component="img"
+            height="300"
+            image={fieldPhoto.getUrl()}
+            alt="Photo of sport field"
+          />
+          )
+        }
+        {
+          !fieldPhoto.getUrl
+          && (
+            <Skeleton variant="rounded" width={500} height={200} />
+          )
+        }
+
         <CardContent>
-          <Skeleton variant="rounded" width={500} height={200} />
           <InfoTabs
             id="info-tabs"
             fieldOpeningHours={fieldOpeningHours}

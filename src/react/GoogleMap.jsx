@@ -5,6 +5,7 @@ import {
 } from '@vis.gl/react-google-maps'
 import { Button, Chip } from '@mui/material'
 import PlaceDetails from '../hooks/placeDetails'
+import InfoPage from './InfoPage'
 
 const GoogleMap = () => {
   const [zoom, setZoom] = useState(17)
@@ -21,6 +22,7 @@ const GoogleMap = () => {
   const [placeOpeningHours, setPlaceOpeningHours] = useState([])
   const [placeRating, setPlaceRating] = useState()
   const [placeIsOpen, setPlaceIsOpen] = useState()
+  const [placePhoto, setPlacePhoto] = useState()
 
   // const [sportfield, setSportfield] = useState(null)
 
@@ -44,8 +46,18 @@ const GoogleMap = () => {
   return (
     <div>
       {infopage && (
-        <Button onClick={closeInfoPage}>Info page placeholder</Button>
-        // <InfoPage sportfield={sportfield} onClose={closeInfoPage} />
+        // <Button onClick={closeInfoPage}>Info page placeholder</Button>
+        <InfoPage
+          sportfield={[
+            placeName,
+            placeAddress,
+            placeRating,
+            placeIsOpen,
+            placeOpeningHours,
+            placePhoto
+          ]}
+          onClose={closeInfoPage}
+        />
       )}
       {!infopage && (
         <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
@@ -71,9 +83,10 @@ const GoogleMap = () => {
                     placeIdInput="ChIJWc9EQTZJqEcRTOEDNragDJM"
                     setPlaceName={setPlaceName}
                     setPlaceAddress={setPlaceAddress}
-                    setPlaceOpeningHours={setPlaceRating}
+                    setPlaceOpeningHours={setPlaceOpeningHours}
                     setPlaceRating={setPlaceRating}
                     setPlaceIsOpen={setPlaceIsOpen}
+                    setPlacePhoto={setPlacePhoto}
                   />
                   {
                     placeIsOpen === true

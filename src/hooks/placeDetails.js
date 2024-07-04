@@ -8,7 +8,8 @@ const PlaceDetails = ({
   setPlaceAddress,
   setPlaceOpeningHours,
   setPlaceRating,
-  setPlaceIsOpen
+  setPlaceIsOpen,
+  setPlacePhoto
 }) => {
   const map = useMap()
   const placesLibrary = useMapsLibrary('places')
@@ -27,11 +28,13 @@ const PlaceDetails = ({
     if (!placesService) return
     placesService.getDetails(request, (place, status) => {
       if (status === placesLibrary.PlacesServiceStatus.OK) {
+        console.log(place)
         setPlaceName(place.name)
         setPlaceAddress(place.formatted_address)
         setPlaceOpeningHours(place.current_opening_hours.weekday_text)
         setPlaceRating(place.rating)
         setPlaceIsOpen(place.current_opening_hours.open_now)
+        setPlacePhoto(place.photos[0])
       }
     })
   })
