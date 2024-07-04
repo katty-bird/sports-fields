@@ -4,7 +4,6 @@ import { useMapsLibrary } from '@vis.gl/react-google-maps'
 const ReverseGeocode = ({ latlong }) => {
   const geocodingLib = useMapsLibrary('geocoding')
   const [geocodingService, setGeocodingService] = useState(null)
-  // const [geocodingResult, setGeocodingResult] = useState(null)
 
   useEffect(() => {
     if (!geocodingLib) return
