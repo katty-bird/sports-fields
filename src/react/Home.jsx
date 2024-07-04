@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-
 import LoginForm from './LoginForm'
-
 import useFirebaseAuth from '../hooks/useFirebaseAuth'
+import GoogleMap from './GoogleMap'
 
 // import useWeather from '../hooks/useWeather'
 
@@ -58,6 +57,9 @@ const Home = () => {
         onPasswordChange={setPassord}
         onLoginClicked={handleLogin}
       />
+      <div style={{ width: '100%', marginTop: '20px' }}>
+        <GoogleMap />
+      </div>
     </div>
   )
 }
