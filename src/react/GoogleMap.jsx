@@ -81,7 +81,7 @@ const GoogleMap = () => {
               {open && (
                 <InfoWindow position={position} onCloseClick={() => setOpen(false)}>
                   <PlaceDetails
-                    placeIdInput="ChIJWc9EQTZJqEcRTOEDNragDJM"
+                    placeIdInput="ChIJfYeoWi9PqEcR0YMn_UDbXuw"
                     setPlaceName={setPlaceName}
                     setPlaceAddress={setPlaceAddress}
                     setPlaceOpeningHours={setPlaceOpeningHours}

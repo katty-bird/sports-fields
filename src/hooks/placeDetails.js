@@ -29,7 +29,6 @@ const PlaceDetails = ({
     if (!placesService) return
     placesService.getDetails(request, (place, status) => {
       if (status === placesLibrary.PlacesServiceStatus.OK) {
-        // console.log(place.reviews)
         setPlaceName(place.name)
         setPlaceAddress(place.formatted_address)
         setPlaceOpeningHours(place.current_opening_hours.weekday_text)

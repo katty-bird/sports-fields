@@ -13,7 +13,8 @@ import {
   CardContent,
   Skeleton,
   Chip,
-  CardMedia
+  CardMedia,
+  Typography
 } from '@mui/material'
 import InfoTabs from './InfoTabs'
 
@@ -27,7 +28,6 @@ const InfoPage = ({ sportfield, onClose }) => {
   const fieldReviews = sportfield[6]
   const fieldSportInfo = ['Basketball', 'Football']
   const fieldSanitaryInfo = ['WC', 'WLAN']
-  // console.log(fieldReviews)
   const handleBackClick = () => {
     onClose()
   }
@@ -51,7 +51,7 @@ const InfoPage = ({ sportfield, onClose }) => {
           title={fieldName}
           subheader={fieldAddress}
           action={
-            <Rating value={fieldRating} readOnly />
+            <Rating value={fieldRating} precision={0.1} readOnly />
           }
         />
         <CardActions>

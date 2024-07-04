@@ -5,7 +5,8 @@ import {
   Grid,
   Button,
   CardActions,
-  TextField
+  TextField,
+  Divider
 } from '@mui/material'
 import CommentCard from './CommentCard'
 
@@ -34,8 +35,8 @@ const ReviewsTab = ({ fieldReviews }) => (
           </CardActions>
         </Card>
       </Grid>
+      <CommentCard fieldReviews={fieldReviews} />
     </Grid>
-    <CommentCard fieldReviews={fieldReviews} />
   </div>
 )
 

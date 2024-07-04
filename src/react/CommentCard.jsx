@@ -19,13 +19,7 @@ const CommentCard = ({ fieldReviews }) => {
   }
 
   return (
-    <Grid
-      container
-      direction="column"
-      justifyContent="flex-start"
-      alignItems="stretch"
-      spacing={3}
-    >
+    <>
       {fieldReviews.map((review, index) => (
         <Grid item key={index}>
           <Card variant="outlined">
@@ -44,7 +38,7 @@ const CommentCard = ({ fieldReviews }) => {
           </Card>
         </Grid>
       ))}
-    </Grid>
+    </>
   )
 }
 
