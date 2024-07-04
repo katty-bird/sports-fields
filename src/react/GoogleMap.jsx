@@ -1,17 +1,10 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
-  APIProvider, Map, AdvancedMarker, Pin, InfoWindow, useMap, useMapsLibrary
+  APIProvider, Map, AdvancedMarker, Pin, InfoWindow
 } from '@vis.gl/react-google-maps'
-import { getApp } from 'firebase/app'
-import {
-  query, where, getDocs, limit, collectionGroup, getFirestore
-} from 'firebase/firestore'
-import { Button } from '@mui/material'
-import InfoPage from './InfoPage'
-import ReverseGeocode from '../hooks/reverseGeocode'
+import { Button, Chip } from '@mui/material'
 import PlaceDetails from '../hooks/placeDetails'
-import getDataFromFirestore from '../hooks/getDataFromFirestore'
 
 const GoogleMap = () => {
   const [zoom, setZoom] = useState(17)
@@ -22,6 +15,12 @@ const GoogleMap = () => {
   const closeInfoPage = () => {
     setInfopage(false)
   }
+
+  const [placeName, setPlaceName] = useState()
+  const [placeAddress, setPlaceAddress] = useState()
+  const [placeOpeningHours, setPlaceOpeningHours] = useState([])
+  const [placeRating, setPlaceRating] = useState()
+  const [placeIsOpen, setPlaceIsOpen] = useState()
 
   // const [sportfield, setSportfield] = useState(null)
 
@@ -45,7 +44,7 @@ const GoogleMap = () => {
   return (
     <div>
       {infopage && (
-        <p>Info page placeholder</p>
+        <Button onClick={closeInfoPage}>Info page placeholder</Button>
         // <InfoPage sportfield={sportfield} onClose={closeInfoPage} />
       )}
       {!infopage && (
@@ -68,11 +67,28 @@ const GoogleMap = () => {
 
               {open && (
                 <InfoWindow position={position} onCloseClick={() => setOpen(false)}>
-                  <Button onClick={() => setInfopage(true)}>More Information</Button>
+                  <PlaceDetails
+                    placeIdInput="ChIJWc9EQTZJqEcRTOEDNragDJM"
+                    setPlaceName={setPlaceName}
+                    setPlaceAddress={setPlaceAddress}
+                    setPlaceOpeningHours={setPlaceRating}
+                    setPlaceRating={setPlaceRating}
+                    setPlaceIsOpen={setPlaceIsOpen}
+                  />
+                  {
+                    placeIsOpen === true
+                    && <Chip label="Now Open" color="success" />
+                  }
+                  {
+                    placeIsOpen === false
+                    && <Chip label="Closed" color="error" />
+                  }
+                  <h2>{placeName}</h2>
+                  <p>{placeAddress}</p>
+                  <Button variant="contained" onClick={() => setInfopage(true)}>More Information</Button>
                 </InfoWindow>
               )}
             </Map>
-            <PlaceDetails placeId="ChIJWc9EQTZJqEcRTOEDNragDJM" />
           </div>
         </APIProvider>
       )}

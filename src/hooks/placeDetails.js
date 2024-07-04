@@ -2,7 +2,14 @@ import { useState, useEffect } from 'react'
 import { useMapsLibrary, useMap } from '@vis.gl/react-google-maps'
 
 // eslint-disable-next-line react/prop-types
-const PlaceDetails = ({ placeIdInput = 'ChIJWc9EQTZJqEcRTOEDNragDJM' }) => {
+const PlaceDetails = ({
+  placeIdInput,
+  setPlaceName,
+  setPlaceAddress,
+  setPlaceOpeningHours,
+  setPlaceRating,
+  setPlaceIsOpen
+}) => {
   const map = useMap()
   const placesLibrary = useMapsLibrary('places')
   const [placesService, setPlacesService] = useState()
@@ -20,7 +27,11 @@ const PlaceDetails = ({ placeIdInput = 'ChIJWc9EQTZJqEcRTOEDNragDJM' }) => {
     if (!placesService) return
     placesService.getDetails(request, (place, status) => {
       if (status === placesLibrary.PlacesServiceStatus.OK) {
-        console.log(place)
+        setPlaceName(place.name)
+        setPlaceAddress(place.formatted_address)
+        setPlaceOpeningHours(place.current_opening_hours.weekday_text)
+        setPlaceRating(place.rating)
+        setPlaceIsOpen(place.current_opening_hours.open_now)
       }
     })
   })
