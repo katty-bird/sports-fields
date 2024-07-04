@@ -27,4 +27,5 @@ secret.json
 # Firebase Emulator Logs
 firestore-debug.log
 ui-debug.log
+firebase-debug.log
 
