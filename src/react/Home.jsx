@@ -25,19 +25,21 @@ const Home = () => {
         width: '100%'
       }}
     >
-      <h1>
-        Welcome to the best Auth-App on the internet:
-        {user?.email}
-      </h1>
+
       <div
         style={{
-          width: '66%',
+          width: '100%',
           padding: '15px',
           marginBottom: '10px',
           background: '#89cff0',
-          borderRadius: '15px'
+          borderRadius: '15px',
+          textAlign: 'center'
         }}
       >
+        <h1>
+          Welcome to the SportsFields App
+          {user?.email}
+        </h1>
         <h3 style={{ margin: 0 }}>
           Please login
         </h3>
