@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client'
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
 
-import Home2 from './react/Home2'
+import Home from './react/Home'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyD8NZgF92WRKE4tU25DvyfGKkR_xezQq-c',
@@ -26,6 +26,6 @@ const root = ReactDOM.createRoot(rootDomElement)
 
 // We use createElement to make this a pure JavaScript file,
 // because we don't like JSX in our .js files ;)
-root.render(React.createElement(Home2))
+root.render(React.createElement(Home))
 
 export default db
