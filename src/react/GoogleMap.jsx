@@ -4,7 +4,7 @@ import {
   APIProvider, Map, AdvancedMarker, Pin, InfoWindow
 } from '@vis.gl/react-google-maps'
 import { Button, Chip } from '@mui/material'
-import PlaceDetails from '../hooks/placeDetails'
+import PlaceDetails from './PlaceDetails'
 import InfoPage from './InfoPage'
 
 const GoogleMap = () => {
@@ -24,25 +24,6 @@ const GoogleMap = () => {
   const [placeIsOpen, setPlaceIsOpen] = useState()
   const [placePhoto, setPlacePhoto] = useState()
   const [placeReviews, setPlaceReviews] = useState([])
-
-  // const [sportfield, setSportfield] = useState(null)
-
-  // useEffect(() => {
-  //   const getSportFieldData = async () => {
-  //     const db = getFirestore(getApp())
-  //     const sportfieldCollectionRef = collectionGroup(db, 'sport-fields')
-  //     const q = query(
-  //       sportfieldCollectionRef,
-  //       where('pluscode', '==', 'FG6P+9W Berlin'),
-  //       // where('name', '==', 'Sample Football Field'),
-  //       limit(1)
-  //     )
-  //     const querySnapshot = await getDocs(q)
-  //     const selectedSportField = querySnapshot.docs[0].data()
-  //     setSportfield(selectedSportField)
-  //   }
-  //   getSportFieldData()
-  // }, [])
 
   return (
     <div>
@@ -101,6 +82,7 @@ const GoogleMap = () => {
                   <h2>{placeName}</h2>
                   <p>{placeAddress}</p>
                   <Button variant="contained" onClick={() => setInfopage(true)}>More Information</Button>
+                  <Button variant="contained">Get Directions</Button>
                 </InfoWindow>
               )}
             </Map>
