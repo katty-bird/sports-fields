@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import {
   APIProvider, Map, AdvancedMarker, Pin, InfoWindow
 } from '@vis.gl/react-google-maps'
@@ -14,14 +14,14 @@ const GoogleMap = () => {
   // eslint-disable-next-line no-console
   console.log(process.env.REACT_APP_MAP_ID)
 
-  const updatePosition = coords => {
+  const updatePosition = useCallback(coords => {
     if (coords) {
       setPosition({
         lat: coords.latitude,
         lng: coords.longitude
       })
     }
-  }
+  }, [])
 
   return (
     <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
