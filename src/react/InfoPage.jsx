@@ -13,8 +13,7 @@ import {
   CardContent,
   Skeleton,
   Chip,
-  CardMedia,
-  Typography
+  CardMedia
 } from '@mui/material'
 import InfoTabs from './InfoTabs'
 
