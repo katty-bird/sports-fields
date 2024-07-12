@@ -17,9 +17,11 @@ const Home = () => {
 
   useEffect(() => {
     if (user) {
-      navigate('/profile')
+      navigate('/profile') // Navigate to profile page after successful login
     }
   }, [user, navigate])
+
+  if (loading) return <p>Loading...</p>
 
   return (
     <div
@@ -30,10 +32,9 @@ const Home = () => {
         alignItems: 'center',
         width: '100%',
         minHeight: '100vh',
-        backgroundColor: '#f1f1f0' // Change this to your desired background color
+        backgroundColor: '#f1f1f0'
       }}
     >
-
       <div
         style={{
           width: '75%',

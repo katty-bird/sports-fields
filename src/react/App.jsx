@@ -1,39 +1,27 @@
 import React from 'react'
-import {
-  Route, Routes, BrowserRouter, useNavigate
-} from 'react-router-dom'
+import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import Home from './Home'
 import PersonalAccount from './PersonalAccount'
 import GoogleMap from './GoogleMap'
+import useFirebaseAuth from '../hooks/useFirebaseAuth'
 
-// import useWeather from '../hooks/useWeather'
+const App = () => {
+  const { user, logoutUser } = useFirebaseAuth()
 
-const fakeUser = {
-  displayName: 'fakeUser',
-  email: 'fakeUser@example.com',
-  photoURL: 'fakeUser',
-  jobTitle: 'fakeUser',
-  company: 'fakeCompany',
-  linkedin: 'fakeLinkedIn',
-  twitter: 'fakeTwitter',
-  aboutMe: 'fakeAboutMe'
+  const handleLogout = async () => {
+    await logoutUser()
+    // Handle any additional state updates or logic here
+  }
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/profile" element={<PersonalAccount user={user} onLogout={handleLogout} />} />
+        <Route path="/map" element={<GoogleMap />} />
+      </Routes>
+    </BrowserRouter>
+  )
 }
-
-const handleLogout = () => {
-  useNavigate('/')
-  console.log('User logged out')
-}
-
-const App = () => (
-
-  <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/profile" element={<PersonalAccount user={fakeUser} onLogout={handleLogout} />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/map" element={<GoogleMap />} />
-    </Routes>
-  </BrowserRouter>
-)
 
 export default App
