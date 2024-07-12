@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import FilterButton from './FilterButton'
 import GoogleMap from './GoogleMap'
-import GeoForm from './GeoForm'
 
 const MainComponent = () => {
   const [filteredPlaces, setFilteredPlaces] = useState([])
@@ -12,11 +11,28 @@ const MainComponent = () => {
     setFilteredPlaces(places)
   }
 
+  const handleLatChange = e => {
+    setLat(parseFloat(e.target.value))
+  }
+
+  const handleLongChange = e => {
+    setLong(parseFloat(e.target.value))
+  }
+
   return (
     <div>
       <FilterButton onFilter={handleFilter} />
-      <GeoForm lat={lat} long={long} onLatChange={setLat} onLongChange={setLong} />
-      <GoogleMap places={filteredPlaces} />
+      <div>
+        <label htmlFor="latitude">
+          Latitude:
+          <input id="latitude" type="number" value={lat} onChange={handleLatChange} />
+        </label>
+        <label htmlFor="longitude">
+          Longitude:
+          <input id="longitude" type="number" value={long} onChange={handleLongChange} />
+        </label>
+      </div>
+      <GoogleMap places={filteredPlaces} center={{ lat, lng: long }} />
     </div>
   )
 }

@@ -23,9 +23,8 @@ const FilterButton = ({ onFilter }) => {
   const applyFilter = async () => {
     try {
       const db = getFirestore(getApp())
-      const querySnapshot = await collection(db, 'sports_places')
-        .where('type', '==', filter)
-        .get()
+      const q = query(collection(db, 'sports_places'), where('type', '==', filter))
+      const querySnapshot = await getDocs(q)
       const filteredPlaces = querySnapshot.docs.map(doc => doc.data())
       onFilter(filteredPlaces)
     } catch (error) {
@@ -42,7 +41,7 @@ const FilterButton = ({ onFilter }) => {
         <option value="Tennis">Tennis</option>
         {/* weitere Optionen */}
       </select>
-      <button onClick={applyFilter}>Filter anwenden</button>
+      <button type="button" onClick={applyFilter}>Filter anwenden</button>
     </div>
   )
 }
