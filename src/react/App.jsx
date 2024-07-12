@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  Route, Routes, BrowserRouter
+  Route, Routes, BrowserRouter, useNavigate
 } from 'react-router-dom'
 import Home from './Home'
 import PersonalAccount from './PersonalAccount'
@@ -19,11 +19,17 @@ const fakeUser = {
   aboutMe: 'fakeAboutMe'
 }
 
+const handleLogout = () => {
+  useNavigate('/')
+  console.log('User logged out')
+}
+
 const App = () => (
+
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/profile" element={<PersonalAccount user={fakeUser} />} />
+      <Route path="/profile" element={<PersonalAccount user={fakeUser} onLogout={handleLogout} />} />
       <Route path="/home" element={<Home />} />
       <Route path="/map" element={<GoogleMap />} />
     </Routes>
