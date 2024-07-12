@@ -1,19 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import LoginForm from './LoginForm'
 import useFirebaseAuth from '../hooks/useFirebaseAuth'
 import GoogleMap from './GoogleMap'
 
-// import useWeather from '../hooks/useWeather'
-
 const Home = () => {
   const [username, setUsername] = useState('')
-  const [password, setPassord] = useState('')
+  const [password, setPassword] = useState('')
 
   const { loading, user, loginUser } = useFirebaseAuth()
+  const navigate = useNavigate()
 
-  const handleLogin = () => {
-    loginUser(username, password)
+  const handleLogin = async () => {
+    await loginUser(username, password)
   }
+
+  useEffect(() => {
+    if (user) {
+      navigate('/profile')
+    }
+  }, [user, navigate])
 
   return (
     <div
@@ -44,19 +50,14 @@ const Home = () => {
           Please login
         </h3>
         {
-          loading
-            && <b>Loading ...</b>
+          loading && <b>Loading ...</b>
         }
-        {/* {
-          !loading
-            && <WeatherGraph weather={weather} />
-        } */}
       </div>
       <LoginForm
         username={username}
         password={password}
         onUsernameChange={setUsername}
-        onPasswordChange={setPassord}
+        onPasswordChange={setPassword}
         onLoginClicked={handleLogin}
       />
       <div style={{ width: '100%', marginTop: '20px' }}>

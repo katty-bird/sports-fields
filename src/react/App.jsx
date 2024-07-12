@@ -1,7 +1,10 @@
 import React from 'react'
-import { Route, Routes, BrowserRouter } from 'react-router-dom'
+import {
+  Route, Routes, BrowserRouter
+} from 'react-router-dom'
 import Home from './Home'
 import PersonalAccount from './PersonalAccount'
+import GoogleMap from './GoogleMap'
 
 // import useWeather from '../hooks/useWeather'
 
@@ -21,6 +24,8 @@ const App = () => (
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/profile" element={<PersonalAccount user={fakeUser} />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/map" element={<GoogleMap />} />
     </Routes>
   </BrowserRouter>
 )
