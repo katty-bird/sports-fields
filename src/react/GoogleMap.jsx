@@ -1,31 +1,33 @@
-import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
+import React, { useState, useCallback } from 'react'
 import {
   APIProvider, Map, AdvancedMarker, Pin, InfoWindow
 } from '@vis.gl/react-google-maps'
 import UserLocation from './UserLocation'
+import FilterButton from './FilterButton'
 
-const GoogleMap = ({ places, center }) => {
+const GoogleMap = () => {
   const [zoom, setZoom] = useState(17)
   const [open, setOpen] = useState(null)
-  const [position, setPosition] = useState(center)
+  const [position, setPosition] = useState({ lat: 52.520008, lng: 13.404954 })
+  const [filteredPlaces, setFilteredPlaces] = useState([])
 
-  useEffect(() => {
-    setPosition(center)
-  }, [center])
-
-  const updatePosition = coords => {
+  const updatePosition = useCallback(coords => {
     if (coords) {
       setPosition({
         lat: coords.latitude,
         lng: coords.longitude
       })
     }
-  }
+  }, [])
+
+  const handleFilter = useCallback(places => {
+    setFilteredPlaces(places)
+  }, [])
 
   return (
     <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
       <div style={{ height: '700px', width: '100%' }}>
+        <FilterButton onFilter={handleFilter} />
         {position ? (
           <Map
             zoom={zoom}
@@ -34,6 +36,7 @@ const GoogleMap = ({ places, center }) => {
             onZoomChanged={setZoom}
             mapId={process.env.REACT_APP_MAP_ID}
             onLoad={map => {
+              // eslint-disable-next-line no-console
               console.log('Map Loaded:', map)
             }}
           >
@@ -47,7 +50,7 @@ const GoogleMap = ({ places, center }) => {
               </InfoWindow>
             )}
 
-            {places.map(place => (
+            {filteredPlaces.map(place => (
               <AdvancedMarker
                 key={place.id}
                 position={{ lat: place.latitude, lng: place.longitude }}
@@ -75,20 +78,6 @@ const GoogleMap = ({ places, center }) => {
       </div>
     </APIProvider>
   )
-}
-
-GoogleMap.propTypes = {
-  places: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    latitude: PropTypes.number.isRequired,
-    longitude: PropTypes.number.isRequired,
-    name: PropTypes.string,
-    description: PropTypes.string
-  })).isRequired,
-  center: PropTypes.shape({
-    lat: PropTypes.number.isRequired,
-    lng: PropTypes.number.isRequired
-  }).isRequired
 }
 
 export default GoogleMap
