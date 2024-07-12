@@ -6,6 +6,7 @@ import {
 import { Button, Chip } from '@mui/material'
 import PlaceDetails from './PlaceDetails'
 import InfoPage from './InfoPage'
+import PlacesList from './PlacesList'
 
 const GoogleMap = () => {
   const [zoom, setZoom] = useState(17)
@@ -16,6 +17,8 @@ const GoogleMap = () => {
   const closeInfoPage = () => {
     setInfopage(false)
   }
+
+  const [places, setPlaces] = useState([])
 
   const [placeName, setPlaceName] = useState()
   const [placeAddress, setPlaceAddress] = useState()
@@ -55,12 +58,39 @@ const GoogleMap = () => {
                 console.log('Map Loaded:', map)
               }}
             >
-              <AdvancedMarker position={position} onClick={() => setOpen(true)}>
+              <PlacesList setPlaces={setPlaces} />
+              {
+                console.log(places)
+              }
+              {/* {
+                places.forEach(place => (
+                  <AdvancedMarker
+                    position={{
+                      lat: place.geometry.location.lat(),
+                      lng: place.geometry.location.lng()
+                    }}
+                    onClick={() => setOpen(true)}
+                  >
+                    <Pin background="white" borderColor="purple" glyphColor="purple" />
+                  </AdvancedMarker>
+                ))
+              } */}
+              <AdvancedMarker
+                position={position}
+                // position={{
+                //   lat: places[0].geometry.location.lat(),
+                //   lng: places[0].geometry.location.lng()
+                // }}
+                onClick={() => setOpen(true)}
+              >
                 <Pin background="white" borderColor="purple" glyphColor="purple" />
               </AdvancedMarker>
 
               {open && (
-                <InfoWindow position={position} onCloseClick={() => setOpen(false)}>
+                <InfoWindow
+                  position={position}
+                  onCloseClick={() => setOpen(false)}
+                >
                   <PlaceDetails
                     placeIdInput="ChIJfYeoWi9PqEcR0YMn_UDbXuw"
                     setPlaceName={setPlaceName}
