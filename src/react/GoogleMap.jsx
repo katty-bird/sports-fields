@@ -72,9 +72,6 @@ const GoogleMap = () => {
             console.log('Map Loaded:', map)
           }}
         >
-          {
-            console.log(zoom)
-          }
           <PlacesList setPlaces={setPlaces} />
           {
                 places.map(place => (

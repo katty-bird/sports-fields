@@ -34,7 +34,6 @@ const PlacesList = ({ setPlaces }) => {
       await placesService.textSearch(request, (results, status) => {
         if (status === placesLibrary.PlacesServiceStatus.OK) {
           setPlaces(results)
-          console.log(results[0].geometry.location.lat())
         }
       })
     }
