@@ -12,13 +12,17 @@ const PlaceDetails = ({
   setPlacePhoto,
   setPlaceReviews
 }) => {
+  console.log(placeIdInput)
   const map = useMap()
   const placesLibrary = useMapsLibrary('places')
   const [placesService, setPlacesService] = useState()
 
   useEffect(() => {
-    if (!placesLibrary || !map) return
-    setPlacesService(new placesLibrary.PlacesService(map))
+    const run = async () => {
+      if (!placesLibrary || !map) return
+      setPlacesService(new placesLibrary.PlacesService(map))
+    }
+    run()
   }, [placesLibrary, map])
 
   const request = {
@@ -29,16 +33,16 @@ const PlaceDetails = ({
     if (!placesService) return
     placesService.getDetails(request, (place, status) => {
       if (status === placesLibrary.PlacesServiceStatus.OK) {
-        setPlaceName(place.name)
-        setPlaceAddress(place.formatted_address)
-        setPlaceOpeningHours(place.current_opening_hours.weekday_text)
-        setPlaceRating(place.rating)
-        setPlaceIsOpen(place.current_opening_hours.open_now)
-        setPlacePhoto(place.photos[0])
-        setPlaceReviews(place.reviews)
+        setPlaceName(place.name ?? 'Unknown Name')
+        setPlaceAddress(place.formatted_address ?? 'Unknown Address')
+        setPlaceOpeningHours(place.current_opening_hours?.weekday_text ?? [])
+        setPlaceRating(place.rating ?? null)
+        setPlaceIsOpen(place.current_opening_hours?.open_now ?? null)
+        setPlacePhoto(place.photos?.[0] ?? null)
+        setPlaceReviews(place.reviews ?? [])
       }
     })
-  })
+  }, [placesService])
 }
 
 export default PlaceDetails
