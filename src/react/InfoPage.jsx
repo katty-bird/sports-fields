@@ -67,7 +67,7 @@ const InfoPage = ({ sportfield, onClose }) => {
           </Button>
         </CardActions>
         {
-          fieldPhoto.getUrl
+          fieldPhoto
           && (
           <CardMedia
             component="img"
@@ -78,7 +78,7 @@ const InfoPage = ({ sportfield, onClose }) => {
           )
         }
         {
-          !fieldPhoto.getUrl
+          !fieldPhoto
           && (
             <Skeleton variant="rounded" width={500} height={200} />
           )
