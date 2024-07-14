@@ -25,7 +25,15 @@ const PlaceDetails = ({
   }, [placesLibrary, map])
 
   const request = {
-    placeId: placeIdInput
+    placeId: placeIdInput,
+    fields: [
+      'formatted_address',
+      'name',
+      'photos',
+      'rating',
+      'current_opening_hours',
+      'reviews'
+    ]
   }
 
   useEffect(() => {

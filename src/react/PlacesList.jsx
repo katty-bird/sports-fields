@@ -8,18 +8,28 @@ const PlacesList = ({ setPlaces }) => {
   const request = {
     fields: [
       'id',
-      'formattedAddress',
-      'displayName',
-      'hasOutdoorSeating',
-      'hasRestroom',
-      'hasWiFi',
-      'location',
-      'photos',
-      'rating',
-      'regularOpeningHours',
-      'reviews'
+      // 'formattedAddress',
+      // 'displayName',
+      // 'hasOutdoorSeating',
+      // 'hasRestroom',
+      // 'hasWiFi',
+      'location'
+      // 'photos',
+      // 'rating',
+      // 'regularOpeningHours',
+      // 'reviews'
     ],
-    includedTypes: ['sports_complex', 'athletic_field'],
+    includedTypes: [
+      'sports_complex',
+      'athletic_field',
+      // 'fitness_center',
+      // 'golf_course',
+      // 'gym',
+      'playground',
+      // 'sports_club',
+      'stadium',
+      'swimming_pool'
+    ],
     locationRestriction: {
       center: { lat: 52.45736432616367, lng: 13.519293310710195 },
       radius: 1000.0
