@@ -14,13 +14,12 @@ const HoursTable = ({ fieldOpeningHours }) => {
     )
   }
   // eslint-disable-next-line react/prop-types
-  const tableRows = fieldOpeningHours.map((openingHours, index) => {
-    const parts = openingHours.split(':')
-    const dayOfWeek = parts[0]
-    const hours = parts[1]?.trim() || ''
+  const tableRows = fieldOpeningHours.map(openingHours => {
+    const colonIndex = openingHours.indexOf(':')
+    const dayOfWeek = openingHours.slice(0, colonIndex).trim()
+    const hours = openingHours.slice(colonIndex + 1).trim()
     return (
-      // eslint-disable-next-line react/no-array-index-key
-      <TableRow key={index}>
+      <TableRow key={dayOfWeek}>
         <TableCell>{dayOfWeek}</TableCell>
         <TableCell>{hours}</TableCell>
       </TableRow>
