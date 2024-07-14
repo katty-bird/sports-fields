@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   APIProvider, Map, AdvancedMarker, Pin, InfoWindow
 } from '@vis.gl/react-google-maps'
@@ -14,12 +14,10 @@ const GoogleMap = () => {
   const [position, setPosition] = useState({ lat: 52.45736432616367, lng: 13.519293310710195 })
 
   const [infopage, setInfopage] = useState(false)
-  const closeInfoPage = () => {
-    setInfopage(false)
-  }
 
   const [places, setPlaces] = useState([])
 
+  const [placeId, setPlaceId] = useState()
   const [placeName, setPlaceName] = useState()
   const [placeAddress, setPlaceAddress] = useState()
   const [placeOpeningHours, setPlaceOpeningHours] = useState([])
@@ -28,9 +26,24 @@ const GoogleMap = () => {
   const [placePhoto, setPlacePhoto] = useState()
   const [placeReviews, setPlaceReviews] = useState([])
 
+  const handlePinClick = placeIdInput => {
+    setOpen(true)
+    setPlaceId(placeIdInput)
+  }
+
+  const handlePinClose = () => {
+    setOpen(false)
+    setPlaceId(null)
+  }
+
+  const closeInfoPage = () => {
+    setInfopage(false)
+    setOpen(false)
+    setPlaceId(null)
+  }
   return (
-    <div>
-      {infopage && (
+    <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
+      {infopage === true && (
         <InfoPage
           sportfield={[
             placeName,
@@ -44,82 +57,63 @@ const GoogleMap = () => {
           onClose={closeInfoPage}
         />
       )}
-      {!infopage && (
-        <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
-          <div style={{ height: '700px', width: '100%' }}>
-            <Map
-              zoom={zoom}
-              center={position}
-              onCenterChanged={e => setPosition(e.detail.center)}
-              onZoomChanged={setZoom}
-              mapId={process.env.REACT_APP_MAP_ID}
-              onLoad={map => {
-                // eslint-disable-next-line no-console
-                console.log('Map Loaded:', map)
-              }}
-            >
-              <PlacesList setPlaces={setPlaces} />
-              {
-                console.log(places)
-              }
-              {/* {
-                places.forEach(place => (
+      {infopage === false && (
+      <div style={{ height: '700px', width: '100%' }}>
+        <Map
+          zoom={zoom}
+          center={position}
+          onCenterChanged={e => setPosition(e.detail.center)}
+          onZoomChanged={setZoom}
+          mapId={process.env.REACT_APP_MAP_ID}
+          onLoad={map => {
+            // eslint-disable-next-line no-console
+            console.log('Map Loaded:', map)
+          }}
+        >
+          <PlacesList setPlaces={setPlaces} />
+          {
+                places.map(place => (
                   <AdvancedMarker
+                    key={place.place_id}
                     position={{
                       lat: place.geometry.location.lat(),
                       lng: place.geometry.location.lng()
                     }}
-                    onClick={() => setOpen(true)}
+                    onClick={() => handlePinClick(place.place_id)}
                   >
                     <Pin background="white" borderColor="purple" glyphColor="purple" />
                   </AdvancedMarker>
                 ))
-              } */}
-              <AdvancedMarker
-                position={position}
-                // position={{
-                //   lat: places[0].geometry.location.lat(),
-                //   lng: places[0].geometry.location.lng()
-                // }}
-                onClick={() => setOpen(true)}
-              >
-                <Pin background="white" borderColor="purple" glyphColor="purple" />
-              </AdvancedMarker>
+              }
 
-              {open && (
-                <InfoWindow
-                  position={position}
-                  onCloseClick={() => setOpen(false)}
-                >
-                  <PlaceDetails
-                    placeIdInput="ChIJfYeoWi9PqEcR0YMn_UDbXuw"
-                    setPlaceName={setPlaceName}
-                    setPlaceAddress={setPlaceAddress}
-                    setPlaceOpeningHours={setPlaceOpeningHours}
-                    setPlaceRating={setPlaceRating}
-                    setPlaceIsOpen={setPlaceIsOpen}
-                    setPlacePhoto={setPlacePhoto}
-                    setPlaceReviews={setPlaceReviews}
-                  />
-                  {
-                    placeIsOpen === true
-                    && <Chip label="Now Open" color="success" />
-                  }
-                  {
-                    placeIsOpen === false
-                    && <Chip label="Closed" color="error" />
-                  }
-                  <h2>{placeName}</h2>
-                  <p>{placeAddress}</p>
-                  <Button variant="contained" onClick={() => setInfopage(true)}>More Information</Button>
-                  <Button variant="contained">Get Directions</Button>
-                </InfoWindow>
-              )}
-            </Map>
-          </div>
-        </APIProvider>
+          {open && (
+          <InfoWindow
+            position={position}
+            onCloseClick={() => handlePinClose()}
+          >
+            <PlaceDetails
+              placeIdInput={placeId}
+              setPlaceName={setPlaceName}
+              setPlaceAddress={setPlaceAddress}
+              setPlaceOpeningHours={setPlaceOpeningHours}
+              setPlaceRating={setPlaceRating}
+              setPlaceIsOpen={setPlaceIsOpen}
+              setPlacePhoto={setPlacePhoto}
+              setPlaceReviews={setPlaceReviews}
+            />
+            {placeIsOpen === true && <Chip label="Now Open" color="success" />}
+            {placeIsOpen === false && <Chip label="Closed" color="error" />}
+            {placeIsOpen === null && <Chip label="Status Unknown" color="warning" />}
+            <h2>{placeName}</h2>
+            <p>{placeAddress}</p>
+            <Button variant="contained" onClick={() => setInfopage(true)}>More Information</Button>
+            <Button variant="contained">Get Directions</Button>
+          </InfoWindow>
+          )}
+        </Map>
+      </div>
       )}
-    </div>
+    </APIProvider>
   )
 }
 
