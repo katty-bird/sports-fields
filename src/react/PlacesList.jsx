@@ -22,7 +22,7 @@ const PlacesList = ({ setPlaces }) => {
     includedTypes: ['sports_complex', 'athletic_field'],
     locationRestriction: {
       center: { lat: 52.45736432616367, lng: 13.519293310710195 },
-      radius: 500.0
+      radius: 1000.0
     }
   }
 
