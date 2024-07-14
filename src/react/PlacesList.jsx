@@ -1,44 +1,42 @@
 /* eslint-disable no-dupe-keys */
-import { useState, useEffect } from 'react'
-import { useMapsLibrary, useMap } from '@vis.gl/react-google-maps'
+import { useEffect } from 'react'
+import { useMapsLibrary } from '@vis.gl/react-google-maps'
 
 const PlacesList = ({ setPlaces }) => {
-  const map = useMap()
   const placesLibrary = useMapsLibrary('places')
-  const [placesService, setPlacesService] = useState()
-
-  useEffect(() => {
-    if (!placesLibrary || !map) return
-    setPlacesService(new placesLibrary.PlacesService(map))
-  }, [placesLibrary, map])
 
   const request = {
-    // query: 'sport',
-    type: 'stadium',
-    // includedType: 'sports_complex',
-    // includedType: 'athletic_field',
-    locationBias: {
-      circle: {
-        center: {
-          latitude: 52.45736432616367,
-          longitude: 13.519293310710195
-        },
-        radius: 500.0
-      }
+    fields: [
+      'id',
+      'formattedAddress',
+      'displayName',
+      'hasOutdoorSeating',
+      'hasRestroom',
+      'hasWiFi',
+      'location',
+      'photos',
+      'rating',
+      'regularOpeningHours',
+      'reviews'
+    ],
+    includedTypes: ['sports_complex', 'athletic_field'],
+    locationRestriction: {
+      center: { lat: 52.45736432616367, lng: 13.519293310710195 },
+      radius: 500.0
     }
   }
 
   useEffect(() => {
     const run = async () => {
-      if (!placesService) return
-      await placesService.textSearch(request, (results, status) => {
-        if (status === placesLibrary.PlacesServiceStatus.OK) {
-          setPlaces(results)
-        }
-      })
+      if (!placesLibrary) return
+      const results = await placesLibrary.Place.searchNearby(request)
+      const placesArray = results.places
+      const egList = placesArray.map(result => result.Eg)
+      // console.log(egList)
+      setPlaces(egList)
     }
     run()
-  }, [placesService])
+  }, [placesLibrary])
 }
 
 export default PlacesList

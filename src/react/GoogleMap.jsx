@@ -41,6 +41,7 @@ const GoogleMap = () => {
     setOpen(false)
     setPlaceId(null)
   }
+
   return (
     <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
       {infopage === true && (
@@ -76,12 +77,12 @@ const GoogleMap = () => {
           {
                 places.map(place => (
                   <AdvancedMarker
-                    key={place.place_id}
+                    key={place.id}
                     position={{
-                      lat: place.geometry.location.lat(),
-                      lng: place.geometry.location.lng()
+                      lat: place.location.lat,
+                      lng: place.location.lng
                     }}
-                    onClick={() => handlePinClick(place.place_id)}
+                    onClick={() => handlePinClick(place.id)}
                   >
                     <Pin background="white" borderColor="purple" glyphColor="purple" />
                   </AdvancedMarker>
