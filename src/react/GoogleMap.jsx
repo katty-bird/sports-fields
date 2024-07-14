@@ -73,7 +73,7 @@ const GoogleMap = () => {
             console.log('Map Loaded:', map)
           }}
         >
-          <PlacesList setPlaces={setPlaces} />
+          <PlacesList centerInput={position} setPlaces={setPlaces} />
           {
                 places.map(place => (
                   <AdvancedMarker

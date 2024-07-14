@@ -2,7 +2,7 @@
 import { useEffect } from 'react'
 import { useMapsLibrary } from '@vis.gl/react-google-maps'
 
-const PlacesList = ({ setPlaces }) => {
+const PlacesList = ({ centerInput, setPlaces }) => {
   const placesLibrary = useMapsLibrary('places')
 
   const request = {
@@ -31,12 +31,14 @@ const PlacesList = ({ setPlaces }) => {
       'swimming_pool'
     ],
     locationRestriction: {
-      center: { lat: 52.45736432616367, lng: 13.519293310710195 },
+      // center: { lat: 52.45736432616367, lng: 13.519293310710195 },
+      center: centerInput,
       radius: 1000.0
     }
   }
 
   useEffect(() => {
+    console.log(centerInput)
     const run = async () => {
       if (!placesLibrary) return
       const results = await placesLibrary.Place.searchNearby(request)
@@ -46,7 +48,7 @@ const PlacesList = ({ setPlaces }) => {
       setPlaces(egList)
     }
     run()
-  }, [placesLibrary])
+  }, [placesLibrary, centerInput])
 }
 
 export default PlacesList
