@@ -12,7 +12,6 @@ const PlaceDetails = ({
   setPlacePhoto,
   setPlaceReviews
 }) => {
-  console.log(placeIdInput)
   const map = useMap()
   const placesLibrary = useMapsLibrary('places')
   const [placesService, setPlacesService] = useState()
