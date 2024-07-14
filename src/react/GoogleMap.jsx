@@ -61,15 +61,20 @@ const GoogleMap = () => {
       <div style={{ height: '700px', width: '100%' }}>
         <Map
           zoom={zoom}
+          defaultZoom={12}
+          defaultCenter={{ lat: 52.5200, lng: 13.4050 }}
           center={position}
           onCenterChanged={e => setPosition(e.detail.center)}
-          onZoomChanged={setZoom}
+          onZoomChanged={e => setZoom()}
           mapId={process.env.REACT_APP_MAP_ID}
           onLoad={map => {
             // eslint-disable-next-line no-console
             console.log('Map Loaded:', map)
           }}
         >
+          {
+            console.log(zoom)
+          }
           <PlacesList setPlaces={setPlaces} />
           {
                 places.map(place => (
