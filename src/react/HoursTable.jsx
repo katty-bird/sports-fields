@@ -6,6 +6,14 @@ import {
 // eslint-disable-next-line react/prop-types
 const HoursTable = ({ fieldOpeningHours }) => {
   // eslint-disable-next-line react/prop-types
+  if (!fieldOpeningHours.length) {
+    return (
+      <TableRow key={0}>
+        <TableCell>No opening times available</TableCell>
+      </TableRow>
+    )
+  }
+  // eslint-disable-next-line react/prop-types
   const tableRows = fieldOpeningHours.map((openingHours, index) => {
     const parts = openingHours.split(':')
     const dayOfWeek = parts[0]
