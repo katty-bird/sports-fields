@@ -62,7 +62,7 @@ const GoogleMap = () => {
       <div style={{ height: '700px', width: '100%' }}>
         <Map
           zoom={zoom}
-          defaultZoom={12}
+          defaultZoom={15}
           defaultCenter={{ lat: 52.5200, lng: 13.4050 }}
           center={position}
           onCenterChanged={e => setPosition(e.detail.center)}
