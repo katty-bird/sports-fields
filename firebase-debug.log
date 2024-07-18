@@ -1,0 +1,47 @@
+[debug] [2024-06-28T08:23:02.565Z] ----------------------------------------------------------------------
+[debug] [2024-06-28T08:23:02.577Z] Command:       D:\Program Files (x86)\nodejs\node.exe C:\Users\ACER\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-06-28T08:23:02.578Z] CLI Version:   13.12.0
+[debug] [2024-06-28T08:23:02.578Z] Platform:      win32
+[debug] [2024-06-28T08:23:02.578Z] Node Version:  v20.12.1
+[debug] [2024-06-28T08:23:02.579Z] Time:          Fri Jun 28 2024 10:23:02 GMT+0200 (Central European Summer Time)
+[debug] [2024-06-28T08:23:02.579Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-06-28T08:23:02.743Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-06-28T08:23:02.744Z] > authorizing via signed-in user (hien.tptran@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\IKG\5. Semester\mHealth-Projekt
+
+Before we get started, keep in mind:
+
+  * You are initializing within an existing Firebase project directory
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2024-06-28T08:23:13.881Z] Using project from CLI flag: mhealth-7f01c
+[debug] [2024-06-28T08:23:13.889Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/mhealth-7f01c [none]
+[debug] [2024-06-28T08:23:14.331Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/mhealth-7f01c 200
+[debug] [2024-06-28T08:23:14.331Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/mhealth-7f01c {"projectId":"mhealth-7f01c","projectNumber":"927986505231","displayName":"mHealth","name":"projects/mhealth-7f01c","resources":{"hostingSite":"mhealth-7f01c"},"state":"ACTIVE","etag":"1_82eb3f22-1b87-4da9-b628-6403f48204b7"}
+[info] i  Using project mhealth-7f01c (mHealth) 
+[info] 
+=== Hosting Setup
+[debug] [2024-06-28T08:23:14.342Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/mhealth-7f01c [none]
+[debug] [2024-06-28T08:23:14.610Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/mhealth-7f01c 200
+[debug] [2024-06-28T08:23:14.611Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/mhealth-7f01c {"projectId":"mhealth-7f01c","projectNumber":"927986505231","displayName":"mHealth","name":"projects/mhealth-7f01c","resources":{"hostingSite":"mhealth-7f01c"},"state":"ACTIVE","etag":"1_82eb3f22-1b87-4da9-b628-6403f48204b7"}
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 

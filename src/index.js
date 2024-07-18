@@ -2,10 +2,10 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 
 import { initializeApp } from 'firebase/app'
-import { getFirestore } from 'firebase/firestore'
 
 import App from './react/App'
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: 'AIzaSyD8NZgF92WRKE4tU25DvyfGKkR_xezQq-c',
   authDomain: 'sportsfields-8822f.firebaseapp.com',
@@ -16,10 +16,7 @@ const firebaseConfig = {
 }
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig)
-
-// Initialize Cloud Firestore and get a reference to the service
-const db = getFirestore(app)
+initializeApp(firebaseConfig)
 
 const rootDomElement = document.getElementById('root')
 const root = ReactDOM.createRoot(rootDomElement)
