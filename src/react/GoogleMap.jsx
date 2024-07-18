@@ -118,14 +118,14 @@ const GoogleMap = () => {
                 onCloseClick={() => handlePinClose()}
               >
                 <PlaceDetails
-                    placeIdInput={placeId}
-                    setPlaceName={setPlaceName}
-                    setPlaceAddress={setPlaceAddress}
-                    setPlaceOpeningHours={setPlaceOpeningHours}
-                    setPlaceRating={setPlaceRating}
-                    setPlaceIsOpen={setPlaceIsOpen}
-                    setPlacePhoto={setPlacePhoto}
-                    setPlaceReviews={setPlaceReviews}
+                  placeIdInput={placeId}
+                  setPlaceName={setPlaceName}
+                  setPlaceAddress={setPlaceAddress}
+                  setPlaceOpeningHours={setPlaceOpeningHours}
+                  setPlaceRating={setPlaceRating}
+                  setPlaceIsOpen={setPlaceIsOpen}
+                  setPlacePhoto={setPlacePhoto}
+                  setPlaceReviews={setPlaceReviews}
                 />
                 {placeIsOpen === true && <Chip label="Now Open" color="success" />}
                 {placeIsOpen === false && <Chip label="Closed" color="error" />}
@@ -137,9 +137,9 @@ const GoogleMap = () => {
               </InfoWindow>
             )}
           </Map>
-          ) : (
-            <div>Loading map...</div>
-          )}
+        ) : (
+          <div>Loading map...</div>
+        )}
       </div>
       )}
     </APIProvider>
