@@ -40,7 +40,7 @@ const Home = () => {
           width: '75%',
           padding: '30px',
           marginBottom: '30px',
-          background: '#89cff0',
+          background: '#00C78C',
           borderRadius: '40px',
           textAlign: 'center'
         }}
