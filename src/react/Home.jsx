@@ -69,10 +69,10 @@ const Home = () => {
       >
         <div style={{
           width: '70%',
-          height: '700px',
+          height: '800px',
           border: '2px solid #ccc',
           borderRadius: '15px',
-          overflow: 'hidden',
+          overflow: 'scroll',
           boxShadow: '1 20px 8px rgba(0, 0, 0, 0.1)'
         }}
         >
