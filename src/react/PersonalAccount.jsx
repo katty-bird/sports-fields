@@ -52,7 +52,15 @@ const PersonalAccount = ({ user, onLogout }) => {
           </Typography>
           <Button
             variant="contained"
-            color="inherit"
+            sx={{
+              backgroundColor: '#9d00ff',
+              color: 'white',
+              borderRadius: '5px',
+              padding: '10px 20px',
+              '&:hover': {
+                backgroundColor: '#ff4b4b'
+              }
+            }}
             onClick={handleLogoutClick}
             startIcon={<ExitToAppIcon />}
           >
