@@ -87,7 +87,7 @@ const GoogleMap = () => {
           >
             {/* Pin for current location */}
             <AdvancedMarker position={position} onClick={() => setCurrentOpen(true)}>
-              <Pin background="white" borderColor="purple" glyphColor="purple" />
+              <Pin background="white" borderColor="red" glyphColor="red" />
             </AdvancedMarker>
             {currentOpen && (
               <InfoWindow position={position} onCloseClick={() => setCurrentOpen(false)}>
@@ -95,7 +95,7 @@ const GoogleMap = () => {
               </InfoWindow>
             )}
             <UserLocation onGeolocationSuccess={updatePosition} />
-            
+
             {/* Pins for nearby sport fields */}
             <PlacesList centerInput={position} setPlaces={setPlaces} />
             {
