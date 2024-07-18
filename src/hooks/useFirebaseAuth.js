@@ -1,31 +1,50 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import {
+  getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
+} from 'firebase/auth'
 
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-
-// Hooks always star with "use".
-// They can contain other hooks.
 const useFirebaseAuth = () => {
-  // Internal state of the hook.
-  const [loading, setLoading] = useState(false)
-  const [user, setUser] = useState()
+  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState(null)
 
-  // The async logic of this hook.
-  // It fetches data from a remote api and communicates it's progress through useState hooks.
+  useEffect(() => {
+    const auth = getAuth()
+    const unsubscribe = onAuthStateChanged(auth, firebaseUser => {
+      if (firebaseUser) {
+        setUser(firebaseUser)
+      } else {
+        setUser(null)
+      }
+      setLoading(false)
+    })
+
+    return () => unsubscribe()
+  }, [])
+
   const loginUser = async (username, password) => {
     setLoading(true)
 
-    const r = await signInWithEmailAndPassword(getAuth(), username, password)
-    setUser(r.user)
-    // const weather = await r.json()
-
-    // setUser(newUser)
-    setLoading(false)
+    try {
+      const auth = getAuth()
+      const userCredential = await signInWithEmailAndPassword(auth, username, password)
+      setUser(userCredential.user)
+    } catch (error) {
+      console.error('Error signing in:', error)
+      setUser(null)
+    } finally {
+      setLoading(false)
+    }
   }
 
-  // The hook returns the result of its operations in a JavaScript Object.
-  // In this case the Object is used like a key-value store.
-  // This is a very common use-case of objects in JavaScript.
-  return { loading, user, loginUser }
+  const logoutUser = async () => {
+    const auth = getAuth()
+    await signOut(auth)
+    setUser(null)
+  }
+
+  return {
+    loading, user, loginUser, logoutUser
+  }
 }
 
 export default useFirebaseAuth

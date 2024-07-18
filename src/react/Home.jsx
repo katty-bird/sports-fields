@@ -17,9 +17,11 @@ const Home = () => {
 
   useEffect(() => {
     if (user) {
-      navigate('/profile')
+      navigate('/profile') // Navigate to profile page after successful login
     }
   }, [user, navigate])
+
+  if (loading) return <p>Loading...</p>
 
   return (
     <div
@@ -28,17 +30,18 @@ const Home = () => {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '100%'
+        width: '100%',
+        minHeight: '100vh',
+        backgroundColor: '#f1f1f0'
       }}
     >
-
       <div
         style={{
-          width: '100%',
-          padding: '15px',
-          marginBottom: '10px',
-          background: '#89cff0',
-          borderRadius: '15px',
+          width: '75%',
+          padding: '30px',
+          marginBottom: '30px',
+          background: '#00C78C',
+          borderRadius: '40px',
           textAlign: 'center'
         }}
       >
@@ -60,8 +63,21 @@ const Home = () => {
         onPasswordChange={setPassword}
         onLoginClicked={handleLogin}
       />
-      <div style={{ width: '100%', marginTop: '20px' }}>
-        <GoogleMap />
+      <div style={{
+        width: '100%', marginTop: '30px', display: 'flex', justifyContent: 'center'
+      }}
+      >
+        <div style={{
+          width: '70%',
+          height: '700px',
+          border: '2px solid #ccc',
+          borderRadius: '15px',
+          overflow: 'hidden',
+          boxShadow: '1 20px 8px rgba(0, 0, 0, 0.1)'
+        }}
+        >
+          <GoogleMap />
+        </div>
       </div>
     </div>
   )
