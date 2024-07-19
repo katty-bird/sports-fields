@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
 import {
   AppBar,
   Toolbar,
@@ -32,6 +31,10 @@ const PersonalAccount = ({ user, onLogout }) => {
     navigate('/')
   }
 
+  const handleReviewsPageClick = () => {
+    navigate('/my-reviews') // Adjust the path if needed
+  }
+
   return (
     <Box sx={{ flexGrow: 1, minHeight: '100vh', bgcolor: 'background.paper' }}>
       <AppBar position="static">
@@ -50,22 +53,40 @@ const PersonalAccount = ({ user, onLogout }) => {
             {user.displayName || 'Sporty One'}
             !
           </Typography>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: '#9d00ff',
-              color: 'white',
-              borderRadius: '5px',
-              padding: '10px 20px',
-              '&:hover': {
-                backgroundColor: '#ff4b4b'
-              }
-            }}
-            onClick={handleLogoutClick}
-            startIcon={<ExitToAppIcon />}
-          >
-            Logout
-          </Button>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: '#9d00ff',
+                color: 'white',
+                borderRadius: '5px',
+                padding: '10px 20px',
+                mr: 2, // margin right to space out the buttons
+                '&:hover': {
+                  backgroundColor: '#ff4b4b'
+                }
+              }}
+              onClick={handleReviewsPageClick}
+            >
+              My Reviews
+            </Button>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: '#9d00ff',
+                color: 'white',
+                borderRadius: '5px',
+                padding: '10px 20px',
+                '&:hover': {
+                  backgroundColor: '#ff4b4b'
+                }
+              }}
+              onClick={handleLogoutClick}
+              startIcon={<ExitToAppIcon />}
+            >
+              Logout
+            </Button>
+          </Box>
         </Toolbar>
       </AppBar>
 
