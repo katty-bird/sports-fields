@@ -1,29 +1,20 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   APIProvider, Map, AdvancedMarker, Pin, InfoWindow
 } from '@vis.gl/react-google-maps'
 import PropTypes from 'prop-types'
-import UserLocation from './UserLocation'
 
-const GoogleMap = ({ position }) => {
+const GoogleMap = ({ review }) => {
   const [zoom, setZoom] = useState(17)
   const [open, setOpen] = useState(false)
   const [mapPosition, setMapPosition] = useState({ lat: 52.520008, lng: 13.404954 })
 
   useEffect(() => {
-    if (position) {
-      setMapPosition(position)
+    if (review && review.location) {
+      setMapPosition(review.location)
+      setOpen(true)
     }
-  }, [position])
-
-  const updatePosition = useCallback(coords => {
-    if (coords) {
-      setMapPosition({
-        lat: coords.latitude,
-        lng: coords.longitude
-      })
-    }
-  }, [])
+  }, [review])
 
   return (
     <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
@@ -46,10 +37,12 @@ const GoogleMap = ({ position }) => {
 
             {open && (
               <InfoWindow position={mapPosition} onCloseClick={() => setOpen(false)}>
-                <p>Your current location</p>
+                <div>
+                  <h2>{review.field}</h2>
+                  <p>{review.review}</p>
+                </div>
               </InfoWindow>
             )}
-            <UserLocation onGeolocationSuccess={updatePosition} />
           </Map>
         ) : (
           <div>Loading map...</div>
@@ -61,9 +54,13 @@ const GoogleMap = ({ position }) => {
 
 GoogleMap.propTypes = {
   // eslint-disable-next-line react/require-default-props
-  position: PropTypes.shape({
-    lat: PropTypes.number,
-    lng: PropTypes.number
+  review: PropTypes.shape({
+    field: PropTypes.string,
+    review: PropTypes.string,
+    location: PropTypes.shape({
+      lat: PropTypes.number,
+      lng: PropTypes.number
+    })
   })
 }
 

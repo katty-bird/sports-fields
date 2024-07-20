@@ -26,10 +26,10 @@ const reviews = [
 ]
 
 const MyReviewsPage = () => {
-  const [selectedLocation, setSelectedLocation] = useState(null)
+  const [selectedReview, setSelectedReview] = useState(null)
 
-  const handleReviewClick = location => {
-    setSelectedLocation(location)
+  const handleReviewClick = review => {
+    setSelectedReview(review)
   }
 
   return (
@@ -37,7 +37,7 @@ const MyReviewsPage = () => {
       <Grid container spacing={3}>
         {reviews.map(review => (
           <Grid item xs={12} sm={6} md={4} key={review.id}>
-            <Card onClick={() => handleReviewClick(review.location)} style={{ cursor: 'pointer' }}>
+            <Card onClick={() => handleReviewClick(review)} style={{ cursor: 'pointer' }}>
               <CardContent>
                 <Typography variant="h5" component="div">
                   {review.field}
@@ -51,7 +51,7 @@ const MyReviewsPage = () => {
         ))}
       </Grid>
       <Box mt={4}>
-        <GoogleMap position={selectedLocation} />
+        <GoogleMap review={selectedReview} />
       </Box>
     </Container>
   )
