@@ -1,5 +1,8 @@
-import React from 'react'
-import MyReviews from './MyReviews'
+import React, { useState } from 'react'
+import {
+  Container, Grid, Card, CardContent, Typography, Box
+} from '@mui/material'
+import GoogleMap from './GoogleMap'
 
 const reviews = [
   {
@@ -22,8 +25,36 @@ const reviews = [
   }
 ]
 
-const MyReviewsPage = () => (
-  <MyReviews reviews={reviews} />
-)
+const MyReviewsPage = () => {
+  const [selectedLocation, setSelectedLocation] = useState(null)
+
+  const handleReviewClick = location => {
+    setSelectedLocation(location)
+  }
+
+  return (
+    <Container>
+      <Grid container spacing={3}>
+        {reviews.map(review => (
+          <Grid item xs={12} sm={6} md={4} key={review.id}>
+            <Card onClick={() => handleReviewClick(review.location)} style={{ cursor: 'pointer' }}>
+              <CardContent>
+                <Typography variant="h5" component="div">
+                  {review.field}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {review.review}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+      <Box mt={4}>
+        <GoogleMap position={selectedLocation} />
+      </Box>
+    </Container>
+  )
+}
 
 export default MyReviewsPage
