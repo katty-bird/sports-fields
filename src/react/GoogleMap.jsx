@@ -3,16 +3,14 @@ import {
   APIProvider, Map, AdvancedMarker, Pin, InfoWindow
 } from '@vis.gl/react-google-maps'
 import UserLocation from './UserLocation'
+import AlertDialog from './AlertDialog'
 
 const GoogleMap = () => {
   const [zoom, setZoom] = useState(17)
   const [open, setOpen] = useState(false)
   const [position, setPosition] = useState({ lat: 52.520008, lng: 13.404954 })
-  // const [position, setPosition] = useState(null)
-  // eslint-disable-next-line no-console
-  console.log('position', position)
-  // eslint-disable-next-line no-console
-  console.log(process.env.REACT_APP_MAP_ID)
+  const [dialogOpen, setDialogOpen] = useState(true)
+  const [useLocation, setUseLocation] = useState(false)
 
   const updatePosition = useCallback(coords => {
     if (coords) {
@@ -22,6 +20,16 @@ const GoogleMap = () => {
       })
     }
   }, [])
+
+  const handleAgree = () => {
+    setDialogOpen(false)
+    setUseLocation(true)
+  }
+
+  const handleDisagree = () => {
+    setDialogOpen(false)
+    setPosition({ lat: 52.520008, lng: 13.404954 }) // Center of Berlin
+  }
 
   return (
     <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
@@ -47,11 +55,12 @@ const GoogleMap = () => {
                 <p>Your current location</p>
               </InfoWindow>
             )}
-            <UserLocation onGeolocationSuccess={updatePosition} />
+            {useLocation && <UserLocation onGeolocationSuccess={updatePosition} />}
           </Map>
         ) : (
           <div>Loading map...</div>
         )}
+        <AlertDialog open={dialogOpen} handleAgree={handleAgree} handleDisagree={handleDisagree} />
       </div>
     </APIProvider>
   )
