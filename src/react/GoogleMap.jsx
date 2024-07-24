@@ -8,16 +8,19 @@ import AlertDialog from './AlertDialog'
 const GoogleMap = () => {
   const [zoom, setZoom] = useState(17)
   const [open, setOpen] = useState(false)
-  const [position, setPosition] = useState({ lat: 52.520008, lng: 13.404954 })
+  const [mapCenter, setMapCenter] = useState({ lat: 52.520008, lng: 13.404954 })
+  const [userPosition, setUserPosition] = useState(null)
   const [dialogOpen, setDialogOpen] = useState(true)
   const [useLocation, setUseLocation] = useState(false)
 
   const updatePosition = useCallback(coords => {
     if (coords) {
-      setPosition({
+      const newPosition = {
         lat: coords.latitude,
         lng: coords.longitude
-      })
+      }
+      setUserPosition(newPosition)
+      setMapCenter(newPosition)
     }
   }, [])
 
@@ -28,17 +31,17 @@ const GoogleMap = () => {
 
   const handleDisagree = () => {
     setDialogOpen(false)
-    setPosition({ lat: 52.520008, lng: 13.404954 }) // Center of Berlin
+    setMapCenter({ lat: 52.520008, lng: 13.404954 }) // Center of Berlin
   }
 
   return (
     <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
       <div style={{ height: '700px', width: '100%' }}>
-        {position ? (
+        {mapCenter ? (
           <Map
             zoom={zoom}
-            center={position}
-            onCenterChanged={e => setPosition(e.detail.center)}
+            center={mapCenter}
+            onCenterChanged={e => setMapCenter(e.detail.center)}
             onZoomChanged={setZoom}
             mapId={process.env.REACT_APP_MAP_ID}
             onLoad={map => {
@@ -46,12 +49,14 @@ const GoogleMap = () => {
               console.log('Map Loaded:', map)
             }}
           >
-            <AdvancedMarker position={position} onClick={() => setOpen(true)}>
-              <Pin background="white" borderColor="purple" glyphColor="purple" />
-            </AdvancedMarker>
+            {userPosition && (
+              <AdvancedMarker position={userPosition} onClick={() => setOpen(true)}>
+                <Pin background="blue" borderColor="blue" glyphColor="white" />
+              </AdvancedMarker>
+            )}
 
             {open && (
-              <InfoWindow position={position} onCloseClick={() => setOpen(false)}>
+              <InfoWindow position={userPosition} onCloseClick={() => setOpen(false)}>
                 <p>Your current location</p>
               </InfoWindow>
             )}
