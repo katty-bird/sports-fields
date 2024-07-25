@@ -1,30 +1,57 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useState, useEffect } from 'react'
+import GoogleMap from './GoogleMap' // Import the updated GoogleMap component
 
-const MyReviews = ({ reviews, onReviewClick }) => (
-  <div>
-    {reviews.map(review => (
-      // eslint-disable-next-line max-len
-      // eslint-disable-next-line max-len,jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-      <div key={review.id} onClick={() => onReviewClick(review.location)}>
-        <h2>{review.field}</h2>
-        <p>{review.review}</p>
-      </div>
-    ))}
-  </div>
-)
+const MyReviews = () => {
+  const [reviews, setReviews] = useState([])
+  const [userPosition, setUserPosition] = useState(null)
 
-MyReviews.propTypes = {
-  reviews: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    field: PropTypes.string.isRequired,
-    review: PropTypes.string.isRequired,
-    location: PropTypes.shape({
-      lat: PropTypes.number.isRequired,
-      lng: PropTypes.number.isRequired
-    }).isRequired
-  })).isRequired,
-  onReviewClick: PropTypes.func.isRequired
+  useEffect(() => {
+    // Fetch user reviews with location data (replace with your logic)
+    fetch('/api/user/reviews')
+      .then(response => response.json())
+      .then(data => setReviews(data))
+      .catch(error => console.error(error))
+  }, [])
+
+  useEffect(() => {
+    // Update user position from GoogleMap component (if available)
+    const handleUserPositionUpdate = position => {
+      setUserPosition(position)
+    }
+
+    // Add listener for user position updates (replace with your event system)
+    window.addEventListener('userPositionUpdated', handleUserPositionUpdate)
+
+    return () => {
+      // Remove listener on component unmount
+      window.removeEventListener('userPositionUpdated', handleUserPositionUpdate)
+    }
+  }, [])
+
+  return (
+    <div>
+      <h1>My Reviews</h1>
+      {reviews.length > 0 ? (
+        <div>
+          {reviews.map(review => (
+            <div key={review.id}>
+              {/* Display review details (including location from review data) */}
+              <p>{review.title}</p>
+              <p>{review.text}</p>
+              {userPosition && (
+                <GoogleMap
+                  // Center the map on review location if user position is available
+                  mapCenter={{ lat: review.location.lat, lng: review.location.lng }}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>You haven not written any reviews yet.</p>
+      )}
+    </div>
+  )
 }
 
 export default MyReviews
