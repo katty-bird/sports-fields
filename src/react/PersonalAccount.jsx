@@ -1,11 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-
 import {
   AppBar,
   Toolbar,
-  IconButton,
-  Button,
   Typography,
   Grid,
   Container,
@@ -15,22 +12,32 @@ import {
   Box,
   Stack,
   Paper,
-  Chip
+  Chip,
+  IconButton
 } from '@mui/material'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import TwitterIcon from '@mui/icons-material/Twitter'
 import EmailIcon from '@mui/icons-material/Email'
-import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import SportsIcon from '@mui/icons-material/Sports'
-import { useNavigate } from 'react-router-dom'
+import GoogleMap from './GoogleMap' // Import the updated GoogleMap component
 
-const PersonalAccount = ({ user, onLogout }) => {
-  const navigate = useNavigate()
+const PersonalAccount = ({ user }) => {
+  const [userPosition, setUserPosition] = useState(null)
 
-  const handleLogoutClick = async () => {
-    await onLogout()
-    navigate('/')
-  }
+  useEffect(() => {
+    // Update user position from GoogleMap component (if available)
+    const handleUserPositionUpdate = position => {
+      setUserPosition(position)
+    }
+
+    // Add listener for user position updates (replace with your event system)
+    window.addEventListener('userPositionUpdated', handleUserPositionUpdate)
+
+    return () => {
+      // Remove listener on component unmount
+      window.removeEventListener('userPositionUpdated', handleUserPositionUpdate)
+    }
+  }, [])
 
   return (
     <Box sx={{ flexGrow: 1, minHeight: '100vh', bgcolor: 'background.paper' }}>
@@ -50,22 +57,6 @@ const PersonalAccount = ({ user, onLogout }) => {
             {user.displayName || 'Sporty One'}
             !
           </Typography>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: '#9d00ff',
-              color: 'white',
-              borderRadius: '5px',
-              padding: '10px 20px',
-              '&:hover': {
-                backgroundColor: '#ff4b4b'
-              }
-            }}
-            onClick={handleLogoutClick}
-            startIcon={<ExitToAppIcon />}
-          >
-            Logout
-          </Button>
         </Toolbar>
       </AppBar>
 
@@ -131,6 +122,12 @@ const PersonalAccount = ({ user, onLogout }) => {
               </CardContent>
             </Card>
           </Grid>
+
+          {userPosition && (
+            <Grid item xs={12}>
+              <GoogleMap mapCenter={userPosition} />
+            </Grid>
+          )}
         </Grid>
       </Container>
     </Box>
@@ -147,8 +144,7 @@ PersonalAccount.propTypes = {
     linkedin: PropTypes.string,
     twitter: PropTypes.string,
     aboutMe: PropTypes.string
-  }).isRequired,
-  onLogout: PropTypes.func.isRequired
+  }).isRequired
 }
 
 export default PersonalAccount

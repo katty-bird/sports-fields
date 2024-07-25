@@ -4,6 +4,8 @@ import Home from './Home'
 import PersonalAccount from './PersonalAccount'
 import GoogleMap from './GoogleMap'
 import useFirebaseAuth from '../hooks/useFirebaseAuth'
+import MyReviewsPage from './MyReviewsPage'
+import TopBar from './TopBar'
 
 const App = () => {
   const { user, logoutUser } = useFirebaseAuth()
@@ -15,10 +17,12 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <TopBar user={user} onLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<PersonalAccount user={user} onLogout={handleLogout} />} />
         <Route path="/map" element={<GoogleMap />} />
+        <Route path="/my-reviews" element={<MyReviewsPage />} />
       </Routes>
     </BrowserRouter>
   )
