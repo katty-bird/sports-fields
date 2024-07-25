@@ -10,6 +10,7 @@ const MyReviews = () => {
     fetch('/api/user/reviews')
       .then(response => response.json())
       .then(data => setReviews(data))
+      // eslint-disable-next-line no-console
       .catch(error => console.error(error))
   }, [])
 
