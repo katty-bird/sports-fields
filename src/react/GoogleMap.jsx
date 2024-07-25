@@ -1,29 +1,47 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useCallback } from 'react'
 import {
   APIProvider, Map, AdvancedMarker, Pin, InfoWindow
 } from '@vis.gl/react-google-maps'
-import PropTypes from 'prop-types'
+import UserLocation from './UserLocation'
+import AlertDialog from './AlertDialog'
 
-const GoogleMap = ({ review }) => {
+const GoogleMap = () => {
   const [zoom, setZoom] = useState(17)
   const [open, setOpen] = useState(false)
-  const [mapPosition, setMapPosition] = useState({ lat: 52.520008, lng: 13.404954 })
+  const [mapCenter, setMapCenter] = useState({ lat: 52.520008, lng: 13.404954 })
+  const [userPosition, setUserPosition] = useState(null)
+  const [dialogOpen, setDialogOpen] = useState(true)
+  const [useLocation, setUseLocation] = useState(false)
 
-  useEffect(() => {
-    if (review && review.location) {
-      setMapPosition(review.location)
-      setOpen(true)
+  const updatePosition = useCallback(coords => {
+    if (coords) {
+      const newPosition = {
+        lat: coords.latitude,
+        lng: coords.longitude
+      }
+      setUserPosition(newPosition)
+      setMapCenter(newPosition)
     }
-  }, [review])
+  }, [])
+
+  const handleAgree = () => {
+    setDialogOpen(false)
+    setUseLocation(true)
+  }
+
+  const handleDisagree = () => {
+    setDialogOpen(false)
+    setMapCenter({ lat: 52.520008, lng: 13.404954 }) // Center of Berlin
+  }
 
   return (
     <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
       <div style={{ height: '700px', width: '100%' }}>
-        {mapPosition ? (
+        {mapCenter ? (
           <Map
             zoom={zoom}
-            center={mapPosition}
-            onCenterChanged={e => setMapPosition(e.detail.center)}
+            center={mapCenter}
+            onCenterChanged={e => setMapCenter(e.detail.center)}
             onZoomChanged={setZoom}
             mapId={process.env.REACT_APP_MAP_ID}
             onLoad={map => {
@@ -31,37 +49,26 @@ const GoogleMap = ({ review }) => {
               console.log('Map Loaded:', map)
             }}
           >
-            <AdvancedMarker position={mapPosition} onClick={() => setOpen(true)}>
-              <Pin background="white" borderColor="purple" glyphColor="purple" />
-            </AdvancedMarker>
+            {userPosition && (
+              <AdvancedMarker position={userPosition} onClick={() => setOpen(true)}>
+                <Pin background="blue" borderColor="blue" glyphColor="white" />
+              </AdvancedMarker>
+            )}
 
             {open && (
-              <InfoWindow position={mapPosition} onCloseClick={() => setOpen(false)}>
-                <div>
-                  <h2>{review.field}</h2>
-                  <p>{review.review}</p>
-                </div>
+              <InfoWindow position={userPosition} onCloseClick={() => setOpen(false)}>
+                <p>Your current location</p>
               </InfoWindow>
             )}
+            {useLocation && <UserLocation onGeolocationSuccess={updatePosition} />}
           </Map>
         ) : (
           <div>Loading map...</div>
         )}
+        <AlertDialog open={dialogOpen} handleAgree={handleAgree} handleDisagree={handleDisagree} />
       </div>
     </APIProvider>
   )
-}
-
-GoogleMap.propTypes = {
-  // eslint-disable-next-line react/require-default-props
-  review: PropTypes.shape({
-    field: PropTypes.string,
-    review: PropTypes.string,
-    location: PropTypes.shape({
-      lat: PropTypes.number,
-      lng: PropTypes.number
-    })
-  })
 }
 
 export default GoogleMap
