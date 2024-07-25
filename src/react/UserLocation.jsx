@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useGeolocated } from 'react-geolocated'
 
@@ -10,7 +10,7 @@ const UserLocation = ({ onGeolocationSuccess }) => {
     userDecisionTimeout: 5000
   })
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (coords) {
       onGeolocationSuccess(coords)
     }
