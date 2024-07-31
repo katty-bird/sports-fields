@@ -5,7 +5,6 @@ import {
 import StarIcon from '@mui/icons-material/Star'
 import PlaceIcon from '@mui/icons-material/Place'
 import GoogleMap from './GoogleMap'
-import eventEmitter from './eventEmitter'
 import useFirebaseAuth from '../hooks/useFirebaseAuth'
 
 const reviews = [
@@ -35,7 +34,8 @@ const MyReviewsPage = () => {
   const [selectedReview, setSelectedReview] = useState(null)
 
   const handleReviewClick = review => {
-    eventEmitter.emit('selectedReview', review)
+    const event = new CustomEvent('selectedReview', { detail: review })
+    window.dispatchEvent(event)
     setSelectedReview(review)
   }
 

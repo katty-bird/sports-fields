@@ -9,7 +9,6 @@ import InfoPage from './InfoPage'
 import PlacesList from './PlacesList'
 import UserLocation from './UserLocation'
 import AlertDialog from './AlertDialog'
-import eventEmitter from './eventEmitter'
 
 const GoogleMap = () => {
   const [zoom, setZoom] = useState(17)
@@ -77,18 +76,20 @@ const GoogleMap = () => {
   }
 
   useEffect(() => {
-    const handleSelectedReview = review => {
+    const handleSelectedReview = event => {
+      const review = event.detail
       if (review) {
         setMapCenter(review.location)
         setSelectedReview(review)
       }
     }
 
-    eventEmitter.on('selectedReview', handleSelectedReview)
+    // Add event listener
+    window.addEventListener('selectedReview', handleSelectedReview)
 
+    // Clean up listener on unmount
     return () => {
-      // Clean up listener
-      eventEmitter.off('selectedReview', handleSelectedReview)
+      window.removeEventListener('selectedReview', handleSelectedReview)
     }
   }, [])
 
