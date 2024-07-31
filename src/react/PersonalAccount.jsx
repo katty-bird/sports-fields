@@ -133,9 +133,6 @@ const PersonalAccount = ({ user }) => {
           {/* New section for MyReviewsPage */}
           <Grid item xs={12}>
             <Box mt={5}>
-              <Typography variant="h5" gutterBottom>
-                My Reviews
-              </Typography>
               <MyReviewsPage />
             </Box>
           </Grid>

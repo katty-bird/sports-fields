@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
-  Container, Grid, Card, CardContent, Typography, Box
+  Container, Grid, Box, Popover, List, ListItem, ListItemText, Button
 } from '@mui/material'
-import { Routes } from 'react-router-dom' // Import Redirect for navigation
+import StarIcon from '@mui/icons-material/Star'
+import PlaceIcon from '@mui/icons-material/Place'
 import GoogleMap from './GoogleMap'
 import eventEmitter from './eventEmitter'
 import useFirebaseAuth from '../hooks/useFirebaseAuth'
@@ -29,42 +30,113 @@ const reviews = [
 ]
 
 const MyReviewsPage = () => {
-  const { loading, user } = useFirebaseAuth() // Use the custom hook
+  const { loading, user } = useFirebaseAuth()
+  const [anchorEl, setAnchorEl] = useState(null)
+  const [selectedReview, setSelectedReview] = useState(null)
 
   const handleReviewClick = review => {
     eventEmitter.emit('selectedReview', review)
+    setSelectedReview(review)
   }
 
+  const handlePlaceClick = event => {
+    // Add functionality to handle favorite places
+    setAnchorEl(anchorEl === event.currentTarget ? null : event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const open = Boolean(anchorEl)
+  const id = open ? 'simple-popover' : undefined
+
   if (loading) {
-    // eslint-disable-next-line max-len
-    return <div>Loading...</div> // Show a loading indicator while authentication state is being checked
+    return <div>Loading...</div>
   }
 
   if (!user) {
-    return <Routes to="/" /> // Redirect to login if the user is not authenticated
+    return <routes to="/" />
   }
 
   return (
     <Container>
-      <Grid container spacing={3}>
-        {reviews.map(review => (
-          <Grid item xs={12} sm={6} md={4} key={review.id}>
-            <Card onClick={() => handleReviewClick(review)} style={{ cursor: 'pointer' }}>
-              <CardContent>
-                <Typography variant="h5" component="div">
-                  {review.field}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {review.review}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-      <Box mt={4}>
-        <GoogleMap />
+      <Box sx={{
+        display: 'flex', flexDirection: 'column', alignItems: 'center', my: 4
+      }}
+      >
+        <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<StarIcon />}
+            onClick={handleReviewClick}
+            sx={{ borderRadius: '8px', boxShadow: 3 }}
+          >
+            My Reviews
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            startIcon={<PlaceIcon />}
+            onClick={handlePlaceClick}
+            sx={{ borderRadius: '8px', boxShadow: 3 }}
+          >
+            Favourite Places
+          </Button>
+        </Box>
+
+        <Popover
+          id={id}
+          open={Boolean(anchorEl)}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center'
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center'
+          }}
+          PaperProps={{
+            sx: {
+              width: 300,
+              maxHeight: 300,
+              overflowY: 'auto'
+            }
+          }}
+        >
+          {selectedReview && (
+            <List>
+              {reviews.map(review => (
+                <ListItem button onClick={() => handleReviewClick(review)} key={review.id}>
+                  <ListItemText
+                    primary={review.field}
+                    secondary={review.review}
+                  />
+                </ListItem>
+              ))}
+            </List>
+          )}
+          {/* Add content for Favourite Places here */}
+        </Popover>
       </Box>
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={12}>
+          <Box
+            sx={{
+              height: '500px',
+              width: '100%',
+              borderRadius: 1,
+              boxShadow: 3,
+              overflow: 'hidden'
+            }}
+          >
+            <GoogleMap selectedReview={selectedReview} />
+          </Box>
+        </Grid>
+      </Grid>
     </Container>
   )
 }
