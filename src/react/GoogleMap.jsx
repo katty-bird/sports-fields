@@ -9,7 +9,7 @@ import InfoPage from './InfoPage'
 import PlacesList from './PlacesList'
 import UserLocation from './UserLocation'
 import AlertDialog from './AlertDialog'
-import eventEmitter from './Profile/eventEmitter'
+import eventEmitter from './eventEmitter'
 
 const GoogleMap = () => {
   const [zoom, setZoom] = useState(17)

@@ -19,7 +19,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import TwitterIcon from '@mui/icons-material/Twitter'
 import EmailIcon from '@mui/icons-material/Email'
 import SportsIcon from '@mui/icons-material/Sports'
-import GoogleMap from '../GoogleMap'
+import GoogleMap from './GoogleMap'
 import MyReviewsPage from './MyReviewsPage'
 
 const PersonalAccount = ({ user }) => {

@@ -2,8 +2,10 @@ import React from 'react'
 import {
   Container, Grid, Card, CardContent, Typography, Box
 } from '@mui/material'
-import GoogleMap from '../GoogleMap'
+import { Routes } from 'react-router-dom' // Import Redirect for navigation
+import GoogleMap from './GoogleMap'
 import eventEmitter from './eventEmitter'
+import useFirebaseAuth from '../hooks/useFirebaseAuth'
 
 const reviews = [
   {
@@ -27,8 +29,19 @@ const reviews = [
 ]
 
 const MyReviewsPage = () => {
+  const { loading, user } = useFirebaseAuth() // Use the custom hook
+
   const handleReviewClick = review => {
     eventEmitter.emit('selectedReview', review)
+  }
+
+  if (loading) {
+    // eslint-disable-next-line max-len
+    return <div>Loading...</div> // Show a loading indicator while authentication state is being checked
+  }
+
+  if (!user) {
+    return <Routes to="/" /> // Redirect to login if the user is not authenticated
   }
 
   return (
