@@ -19,6 +19,8 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import TwitterIcon from '@mui/icons-material/Twitter'
 import EmailIcon from '@mui/icons-material/Email'
 import SportsIcon from '@mui/icons-material/Sports'
+import GoogleMap from '../GoogleMap'
+import MyReviewsPage from './MyReviewsPage'
 
 const PersonalAccount = ({ user }) => {
   const [userPosition, setUserPosition] = useState(null)
@@ -29,7 +31,7 @@ const PersonalAccount = ({ user }) => {
       setUserPosition(position)
     }
 
-    // Add listener for user position updates (replace with your event system)
+    // Add listener for user position updates
     window.addEventListener('userPositionUpdated', handleUserPositionUpdate)
 
     return () => {
@@ -127,6 +129,16 @@ const PersonalAccount = ({ user }) => {
               <GoogleMap mapCenter={userPosition} />
             </Grid>
           )}
+
+          {/* New section for MyReviewsPage */}
+          <Grid item xs={12}>
+            <Box mt={5}>
+              <Typography variant="h5" gutterBottom>
+                My Reviews
+              </Typography>
+              <MyReviewsPage />
+            </Box>
+          </Grid>
         </Grid>
       </Container>
     </Box>

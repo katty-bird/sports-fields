@@ -80,6 +80,7 @@ const GoogleMap = () => {
     const handleSelectedReview = review => {
       if (review) {
         setMapCenter(review.location)
+        setSelectedReview(review)
       }
     }
 
@@ -123,6 +124,19 @@ const GoogleMap = () => {
               console.log('Map Loaded:', map)
             }}
           >
+            {selectedReview && (
+              <AdvancedMarker position={selectedReview.location}>
+                <Pin background="white" borderColor="purple" glyphColor="purple" />
+              </AdvancedMarker>
+            )}
+            {selectedReview && (
+              <InfoWindow position={selectedReview.location}>
+                <div>
+                  <h3>{selectedReview.field}</h3>
+                  <p>{selectedReview.review}</p>
+                </div>
+              </InfoWindow>
+            )}
             {/* Pin for current location */}
             {userPosition && (
               <AdvancedMarker position={userPosition} onClick={() => setCurrentOpen(true)}>
