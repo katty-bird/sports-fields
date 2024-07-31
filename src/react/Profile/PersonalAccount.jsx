@@ -19,7 +19,6 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import TwitterIcon from '@mui/icons-material/Twitter'
 import EmailIcon from '@mui/icons-material/Email'
 import SportsIcon from '@mui/icons-material/Sports'
-import GoogleMap from './GoogleMap' // Import the updated GoogleMap component
 
 const PersonalAccount = ({ user }) => {
   const [userPosition, setUserPosition] = useState(null)

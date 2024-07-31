@@ -1,11 +1,11 @@
 import React from 'react'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import Home from './Home'
-import PersonalAccount from './PersonalAccount'
+import PersonalAccount from './Profile/PersonalAccount'
 import GoogleMap from './GoogleMap'
 import useFirebaseAuth from '../hooks/useFirebaseAuth'
-import MyReviewsPage from './MyReviewsPage'
 import TopBar from './TopBar'
+import MyReviewsPage from './Profile/MyReviewsPage'
 
 const App = () => {
   const { user, logoutUser } = useFirebaseAuth()

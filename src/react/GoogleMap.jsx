@@ -9,6 +9,7 @@ import InfoPage from './InfoPage'
 import PlacesList from './PlacesList'
 import UserLocation from './UserLocation'
 import AlertDialog from './AlertDialog'
+import eventEmitter from './Profile/eventEmitter'
 
 const GoogleMap = () => {
   const [zoom, setZoom] = useState(17)
@@ -34,6 +35,8 @@ const GoogleMap = () => {
   const [userPosition, setUserPosition] = useState(null)
   const [dialogOpen, setDialogOpen] = useState(true)
   const [useLocation, setUseLocation] = useState(false)
+
+  const [selectedReview, setSelectedReview] = useState(null)
 
   const handlePinClick = (placeIdInput, lat, lng) => {
     setOpen(true)
@@ -72,6 +75,21 @@ const GoogleMap = () => {
     setDialogOpen(false)
     setMapCenter({ lat: 52.520008, lng: 13.404954 }) // Center of Berlin
   }
+
+  useEffect(() => {
+    const handleSelectedReview = review => {
+      if (review) {
+        setMapCenter(review.location)
+      }
+    }
+
+    eventEmitter.on('selectedReview', handleSelectedReview)
+
+    return () => {
+      // Clean up listener
+      eventEmitter.off('selectedReview', handleSelectedReview)
+    }
+  }, [])
 
   return (
     <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
