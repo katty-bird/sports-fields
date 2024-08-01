@@ -20,7 +20,7 @@ const PlacesList = ({ centerInput, setPlaces }) => {
       // 'reviews'
     ],
     includedTypes: [
-      'sports_complex',
+      // 'sports_complex',
       'athletic_field',
       // 'fitness_center',
       // 'golf_course',
@@ -38,7 +38,6 @@ const PlacesList = ({ centerInput, setPlaces }) => {
   }
 
   useEffect(() => {
-    console.log(centerInput)
     const run = async () => {
       if (!placesLibrary) return
       const results = await placesLibrary.Place.searchNearby(request)
