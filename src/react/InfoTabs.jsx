@@ -14,7 +14,8 @@ const InfoTabs = ({
   fieldReviews,
   placeIdInput,
   setPlaceSportsInfo,
-  setPlaceSanitaryInfo
+  setPlaceSanitaryInfo,
+  setPlaceReviews
 }) => {
   const [value, setValue] = React.useState(0)
 
@@ -50,7 +51,11 @@ const InfoTabs = ({
       {
         value === 1
         && (
-          <ReviewsTab fieldReviews={fieldReviews} />
+          <ReviewsTab
+            fieldReviews={fieldReviews}
+            setPlaceReviews={setPlaceReviews}
+            placeIdInput={placeIdInput}
+          />
         )
       }
     </div>

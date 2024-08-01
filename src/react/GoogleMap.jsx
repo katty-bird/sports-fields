@@ -94,6 +94,7 @@ const GoogleMap = () => {
           placeID={placeId}
           setPlaceSportsInfo={setPlaceSportsInfo}
           setPlaceSanitaryInfo={setPlaceSanitaryInfo}
+          setPlaceReviews={setPlaceReviews}
         />
       )}
       {infopage === false && (

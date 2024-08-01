@@ -18,7 +18,7 @@ import {
 import InfoTabs from './InfoTabs'
 
 const InfoPage = ({
-  sportfield, onClose, placeID, setPlaceSportsInfo, setPlaceSanitaryInfo
+  sportfield, onClose, placeID, setPlaceSportsInfo, setPlaceSanitaryInfo, setPlaceReviews
 }) => {
   const fieldName = sportfield[0]
   const fieldAddress = sportfield[1]
@@ -96,6 +96,7 @@ const InfoPage = ({
             placeIdInput={placeID}
             setPlaceSportsInfo={setPlaceSportsInfo}
             setPlaceSanitaryInfo={setPlaceSanitaryInfo}
+            setPlaceReviews={setPlaceReviews}
           />
         </CardContent>
       </Card>
