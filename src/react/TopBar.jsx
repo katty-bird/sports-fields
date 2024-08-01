@@ -69,7 +69,7 @@ const TopBar = ({ user, onLogout }) => {
                 onClose={handleClose}
               >
                 <MenuItem onClick={() => handleNavigation('/profile')}>Profile</MenuItem>
-                <MenuItem onClick={() => handleNavigation('/my-reviews')}>My Reviews</MenuItem>
+                <MenuItem onClick={() => handleNavigation('/my-reviews')}>Favourite Places</MenuItem>
                 <MenuItem onClick={() => handleNavigation('/')}>Map</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>

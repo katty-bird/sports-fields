@@ -13,16 +13,44 @@ import {
   Stack,
   Paper,
   Chip,
-  IconButton
+  IconButton,
+  Popover,
+  List,
+  ListItem,
+  ListItemText,
+  Button
 } from '@mui/material'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import TwitterIcon from '@mui/icons-material/Twitter'
 import EmailIcon from '@mui/icons-material/Email'
 import SportsIcon from '@mui/icons-material/Sports'
-import GoogleMap from './GoogleMap' // Import the updated GoogleMap component
+import GoogleMap from './GoogleMap'
+
+const reviews = [
+  {
+    id: 1,
+    field: 'Tempelhofer Feld',
+    review: 'Spacious area with great facilities.',
+    location: { lat: 52.475333, lng: 13.406741 }
+  },
+  {
+    id: 2,
+    field: 'Volkspark Friedrichshain',
+    review: 'Well-maintained and beautiful park.',
+    location: { lat: 52.526355, lng: 13.433835 }
+  },
+  {
+    id: 3,
+    field: 'Mauerpark',
+    review: 'Great place for sports and leisure.',
+    location: { lat: 52.543333, lng: 13.403061 }
+  }
+]
 
 const PersonalAccount = ({ user }) => {
   const [userPosition, setUserPosition] = useState(null)
+  const [anchorEl, setAnchorEl] = useState(null)
+  const [selectedReview, setSelectedReview] = useState(null)
 
   useEffect(() => {
     // Update user position from GoogleMap component (if available)
@@ -30,7 +58,7 @@ const PersonalAccount = ({ user }) => {
       setUserPosition(position)
     }
 
-    // Add listener for user position updates (replace with your event system)
+    // Add listener for user position updates
     window.addEventListener('userPositionUpdated', handleUserPositionUpdate)
 
     return () => {
@@ -38,6 +66,22 @@ const PersonalAccount = ({ user }) => {
       window.removeEventListener('userPositionUpdated', handleUserPositionUpdate)
     }
   }, [])
+
+  const handleReviewClick = review => {
+    setSelectedReview(review)
+    setAnchorEl(null) // Close the popover
+  }
+
+  const handlePlaceClick = event => {
+    setAnchorEl(anchorEl === event.currentTarget ? null : event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const open = Boolean(anchorEl)
+  const id = open ? 'simple-popover' : undefined
 
   return (
     <Box sx={{ flexGrow: 1, minHeight: '100vh', bgcolor: 'background.paper' }}>
@@ -128,6 +172,57 @@ const PersonalAccount = ({ user }) => {
               <GoogleMap mapCenter={userPosition} />
             </Grid>
           )}
+
+          <Grid item xs={12}>
+            <Box mt={5}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handlePlaceClick}
+                sx={{ borderRadius: '8px', boxShadow: 3 }}
+              >
+                Favourite places
+              </Button>
+              <Popover
+                id={id}
+                open={Boolean(anchorEl)}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center'
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'center'
+                }}
+                PaperProps={{
+                  sx: {
+                    width: 300,
+                    maxHeight: 300,
+                    overflowY: 'auto'
+                  }
+                }}
+              >
+                <List>
+                  {reviews.map(review => (
+                    <ListItem button onClick={() => handleReviewClick(review)} key={review.id}>
+                      <ListItemText
+                        primary={review.field}
+                        secondary={review.review}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+              </Popover>
+
+              {selectedReview && (
+                <Box mt={5} sx={{ height: '700px', width: '100%' }}>
+                  <GoogleMap selectedReview={selectedReview} />
+                </Box>
+              )}
+            </Box>
+          </Grid>
         </Grid>
       </Container>
     </Box>

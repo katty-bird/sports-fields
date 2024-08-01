@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useCallback } from 'react'
+import PropTypes from 'prop-types'
 import {
   APIProvider, Map, AdvancedMarker, Pin, InfoWindow
 } from '@vis.gl/react-google-maps'
@@ -10,7 +10,7 @@ import PlacesList from './PlacesList'
 import UserLocation from './UserLocation'
 import AlertDialog from './AlertDialog'
 
-const GoogleMap = () => {
+const GoogleMap = ({ selectedReview }) => {
   const [zoom, setZoom] = useState(17)
   const [open, setOpen] = useState(false)
 
@@ -75,6 +75,12 @@ const GoogleMap = () => {
     setMapCenter({ lat: 52.520008, lng: 13.404954 }) // Center of Berlin
   }
 
+  useEffect(() => {
+    if (selectedReview) {
+      setMapCenter(selectedReview.location)
+    }
+  }, [selectedReview])
+
   return (
     <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
       {infopage === true && (
@@ -106,13 +112,27 @@ const GoogleMap = () => {
             defaultCenter={{ lat: 52.5200, lng: 13.4050 }}
             center={mapCenter}
             onCenterChanged={e => setMapCenter(e.detail.center)}
-            onZoomChanged={e => setZoom()}
+            onZoomChanged={() => setZoom()}
             mapId={process.env.REACT_APP_MAP_ID}
             onLoad={map => {
-              // eslint-disable-next-line no-console
               console.log('Map Loaded:', map)
             }}
           >
+            {selectedReview && (
+              <AdvancedMarker position={selectedReview.location}>
+                <Pin background="white" borderColor="purple" glyphColor="purple" />
+              </AdvancedMarker>
+            )}
+            {selectedReview && (
+              <InfoWindow position={selectedReview.location}>
+                <div>
+                  {/* eslint-disable-next-line react/prop-types */}
+                  <h3>{selectedReview.field}</h3>
+                  {/* eslint-disable-next-line react/prop-types */}
+                  <p>{selectedReview.review}</p>
+                </div>
+              </InfoWindow>
+            )}
             {/* Pin for current location */}
             {userPosition && (
               <AdvancedMarker position={userPosition} onClick={() => setCurrentOpen(true)}>
@@ -177,6 +197,19 @@ const GoogleMap = () => {
       )}
     </APIProvider>
   )
+}
+
+// Define PropTypes for GoogleMap component
+GoogleMap.propTypes = {
+  // eslint-disable-next-line react/require-default-props
+  selectedReview: PropTypes.shape({
+    location: PropTypes.shape({
+      lat: PropTypes.number.isRequired,
+      lng: PropTypes.number.isRequired
+    }).isRequired,
+    field: PropTypes.string,
+    review: PropTypes.string
+  })
 }
 
 export default GoogleMap
