@@ -29,6 +29,8 @@ const GoogleMap = () => {
   const [placeIsOpen, setPlaceIsOpen] = useState()
   const [placePhoto, setPlacePhoto] = useState()
   const [placeReviews, setPlaceReviews] = useState([])
+  const [placeSportsInfo, setPlaceSportsInfo] = useState([])
+  const [placeSanitaryInfo, setPlaceSanitaryInfo] = useState([])
 
   const [mapCenter, setMapCenter] = useState({ lat: 52.520008, lng: 13.404954 })
   const [userPosition, setUserPosition] = useState(null)
@@ -84,9 +86,14 @@ const GoogleMap = () => {
             placeIsOpen,
             placeOpeningHours,
             placePhoto,
-            placeReviews
+            placeReviews,
+            placeSportsInfo,
+            placeSanitaryInfo
           ]}
           onClose={closeInfoPage}
+          placeID={placeId}
+          setPlaceSportsInfo={setPlaceSportsInfo}
+          setPlaceSanitaryInfo={setPlaceSanitaryInfo}
         />
       )}
       {infopage === false && (
@@ -148,6 +155,8 @@ const GoogleMap = () => {
                   setPlaceIsOpen={setPlaceIsOpen}
                   setPlacePhoto={setPlacePhoto}
                   setPlaceReviews={setPlaceReviews}
+                  setPlaceSportsInfo={setPlaceSportsInfo}
+                  setPlaceSanitaryInfo={setPlaceSanitaryInfo}
                 />
                 {placeIsOpen === true && <Chip label="Now Open" color="success" />}
                 {placeIsOpen === false && <Chip label="Closed" color="error" />}

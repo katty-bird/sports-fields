@@ -25,7 +25,7 @@ const PlacesList = ({ centerInput, setPlaces }) => {
       // 'fitness_center',
       // 'golf_course',
       // 'gym',
-      'playground',
+      // 'playground',
       // 'sports_club',
       'stadium',
       'swimming_pool'

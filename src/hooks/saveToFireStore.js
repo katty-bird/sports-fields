@@ -23,7 +23,9 @@ const saveToFireStore = async (
     open_now: isOpen,
     photo: placePhoto,
     reviews: placeReviews,
-    rating: placeRating
+    rating: placeRating,
+    sports: [],
+    sanitary: []
   })
 }
 

@@ -9,6 +9,8 @@ const getDataFromPlaces = async (
   setPlaceIsOpen,
   setPlacePhoto,
   setPlaceReviews,
+  setPlaceSportsInfo,
+  setPlaceSanitaryInfo,
   placesService,
   placesLibrary
 ) => {
@@ -43,8 +45,10 @@ const getDataFromPlaces = async (
       setPlaceOpeningHours(place.current_opening_hours?.weekday_text ?? [])
       setPlaceRating(place.rating ?? null)
       setPlaceIsOpen(place.current_opening_hours?.open_now ?? null)
-      setPlacePhoto(place.photos?.[0] ?? null)
+      setPlacePhoto(place.photos?.[0].getUrl() ?? null)
       setPlaceReviews(place.reviews ?? [])
+      setPlaceSanitaryInfo([])
+      setPlaceSportsInfo([])
     }
   })
 }

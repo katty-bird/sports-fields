@@ -15,7 +15,9 @@ const PlaceDetails = ({
   setPlaceRating,
   setPlaceIsOpen,
   setPlacePhoto,
-  setPlaceReviews
+  setPlaceReviews,
+  setPlaceSportsInfo,
+  setPlaceSanitaryInfo
 }) => {
   const map = useMap()
   const placesLibrary = useMapsLibrary('places')
@@ -42,6 +44,9 @@ const PlaceDetails = ({
         setPlaceIsOpen(data.open_now ?? null)
         setPlacePhoto(data.photo ?? null)
         setPlaceReviews(data.reviews ?? [])
+        setPlaceSportsInfo(data.sports ?? [])
+        console.log(data.sports)
+        setPlaceSanitaryInfo(data.sanitary ?? [])
       } else {
         getDataFromPlaces(
           placeIdInput,
@@ -52,6 +57,8 @@ const PlaceDetails = ({
           setPlaceIsOpen,
           setPlacePhoto,
           setPlaceReviews,
+          setPlaceSportsInfo,
+          setPlaceSanitaryInfo,
           placesService,
           placesLibrary
         )
