@@ -10,7 +10,8 @@ import PlacesList from './PlacesList'
 import UserLocation from './UserLocation'
 import AlertDialog from './AlertDialog'
 
-const GoogleMap = () => {
+// eslint-disable-next-line react/prop-types
+const GoogleMap = ({ selectedReview }) => {
   const [zoom, setZoom] = useState(17)
   const [open, setOpen] = useState(false)
 
@@ -34,8 +35,6 @@ const GoogleMap = () => {
   const [userPosition, setUserPosition] = useState(null)
   const [dialogOpen, setDialogOpen] = useState(true)
   const [useLocation, setUseLocation] = useState(false)
-
-  const [selectedReview, setSelectedReview] = useState(null)
 
   const handlePinClick = (placeIdInput, lat, lng) => {
     setOpen(true)
@@ -76,22 +75,11 @@ const GoogleMap = () => {
   }
 
   useEffect(() => {
-    const handleSelectedReview = event => {
-      const review = event.detail
-      if (review) {
-        setMapCenter(review.location)
-        setSelectedReview(review)
-      }
+    if (selectedReview) {
+      // eslint-disable-next-line react/prop-types
+      setMapCenter(selectedReview.location)
     }
-
-    // Add event listener
-    window.addEventListener('selectedReview', handleSelectedReview)
-
-    // Clean up listener on unmount
-    return () => {
-      window.removeEventListener('selectedReview', handleSelectedReview)
-    }
-  }, [])
+  }, [selectedReview])
 
   return (
     <APIProvider apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
@@ -126,14 +114,18 @@ const GoogleMap = () => {
             }}
           >
             {selectedReview && (
+              // eslint-disable-next-line react/prop-types
               <AdvancedMarker position={selectedReview.location}>
                 <Pin background="white" borderColor="purple" glyphColor="purple" />
               </AdvancedMarker>
             )}
             {selectedReview && (
+              // eslint-disable-next-line react/prop-types
               <InfoWindow position={selectedReview.location}>
                 <div>
+                  {/* eslint-disable-next-line react/prop-types */}
                   <h3>{selectedReview.field}</h3>
+                  {/* eslint-disable-next-line react/prop-types */}
                   <p>{selectedReview.review}</p>
                 </div>
               </InfoWindow>

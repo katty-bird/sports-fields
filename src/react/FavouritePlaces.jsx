@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import {
-  Container, Grid, Box, Popover, List, ListItem, ListItemText, Button
+  Container, Box, Button, Popover, List, ListItem, ListItemText
 } from '@mui/material'
 import StarIcon from '@mui/icons-material/Star'
-import PlaceIcon from '@mui/icons-material/Place'
-import GoogleMap from './GoogleMap'
-import useFirebaseAuth from '../hooks/useFirebaseAuth'
+import PropTypes from 'prop-types'
+import GoogleMap from './GoogleMap' // Import the GoogleMap component
 
+// Sample reviews
 const reviews = [
   {
     id: 1,
@@ -28,19 +28,15 @@ const reviews = [
   }
 ]
 
-const MyReviewsPage = () => {
-  const { loading, user } = useFirebaseAuth()
+// eslint-disable-next-line react/prop-types
+const FavouritePlaces = ({ selectedReview, setSelectedReview }) => {
   const [anchorEl, setAnchorEl] = useState(null)
-  const [selectedReview, setSelectedReview] = useState(null)
 
   const handleReviewClick = review => {
-    const event = new CustomEvent('selectedReview', { detail: review })
-    window.dispatchEvent(event)
-    setSelectedReview(review)
+    setSelectedReview(review) // Notify parent component
   }
 
   const handlePlaceClick = event => {
-    // Add functionality to handle favorite places
     setAnchorEl(anchorEl === event.currentTarget ? null : event.currentTarget)
   }
 
@@ -50,14 +46,6 @@ const MyReviewsPage = () => {
 
   const open = Boolean(anchorEl)
   const id = open ? 'simple-popover' : undefined
-
-  if (loading) {
-    return <div>Loading...</div>
-  }
-
-  if (!user) {
-    return <routes to="/" />
-  }
 
   return (
     <Container>
@@ -70,19 +58,10 @@ const MyReviewsPage = () => {
             variant="contained"
             color="primary"
             startIcon={<StarIcon />}
-            onClick={handleReviewClick}
-            sx={{ borderRadius: '8px', boxShadow: 3 }}
-          >
-            My Reviews
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            startIcon={<PlaceIcon />}
             onClick={handlePlaceClick}
             sx={{ borderRadius: '8px', boxShadow: 3 }}
           >
-            Favourite Places
+            Favourite places
           </Button>
         </Box>
 
@@ -107,38 +86,39 @@ const MyReviewsPage = () => {
             }
           }}
         >
-          {selectedReview && (
-            <List>
-              {reviews.map(review => (
-                <ListItem button onClick={() => handleReviewClick(review)} key={review.id}>
-                  <ListItemText
-                    primary={review.field}
-                    secondary={review.review}
-                  />
-                </ListItem>
-              ))}
-            </List>
-          )}
-          {/* Add content for Favourite Places here */}
+          <List>
+            {reviews.map(review => (
+              <ListItem button onClick={() => handleReviewClick(review)} key={review.id}>
+                <ListItemText
+                  primary={review.field}
+                  secondary={review.review}
+                />
+              </ListItem>
+            ))}
+          </List>
         </Popover>
       </Box>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={12}>
-          <Box
-            sx={{
-              height: '500px',
-              width: '100%',
-              borderRadius: 1,
-              boxShadow: 3,
-              overflow: 'hidden'
-            }}
-          >
-            <GoogleMap selectedReview={selectedReview} />
-          </Box>
-        </Grid>
-      </Grid>
+
+      {/* Render GoogleMap with selectedReview */}
+      <Box sx={{ height: '700px', width: '100%' }}>
+        <GoogleMap selectedReview={selectedReview} />
+      </Box>
     </Container>
   )
 }
 
-export default MyReviewsPage
+FavouritePlaces.propTypes = {
+  // eslint-disable-next-line react/require-default-props
+  selectedReview: PropTypes.shape({
+    id: PropTypes.number,
+    field: PropTypes.string,
+    review: PropTypes.string,
+    location: PropTypes.shape({
+      lat: PropTypes.number,
+      lng: PropTypes.number
+    })
+  }),
+  setSelectedReview: PropTypes.func.isRequired
+}
+
+export default FavouritePlaces
