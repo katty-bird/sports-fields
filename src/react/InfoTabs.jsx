@@ -9,9 +9,13 @@ import ReviewsTab from './ReviewsTab'
 // eslint-disable-next-line react/prop-types
 const InfoTabs = ({
   fieldOpeningHours,
-  fieldSportInfo,
+  fieldSportsInfo,
   fieldSanitaryInfo,
-  fieldReviews
+  fieldReviews,
+  placeIdInput,
+  setPlaceSportsInfo,
+  setPlaceSanitaryInfo,
+  setPlaceReviews
 }) => {
   const [value, setValue] = React.useState(0)
 
@@ -36,15 +40,22 @@ const InfoTabs = ({
         && (
           <OverviewTab
             fieldOpeningHours={fieldOpeningHours}
-            fieldSportInfo={fieldSportInfo}
+            fieldSportsInfo={fieldSportsInfo}
             fieldSanitaryInfo={fieldSanitaryInfo}
+            placeIdInput={placeIdInput}
+            setPlaceSportsInfo={setPlaceSportsInfo}
+            setPlaceSanitaryInfo={setPlaceSanitaryInfo}
           />
         )
       }
       {
         value === 1
         && (
-          <ReviewsTab fieldReviews={fieldReviews} />
+          <ReviewsTab
+            fieldReviews={fieldReviews}
+            setPlaceReviews={setPlaceReviews}
+            placeIdInput={placeIdInput}
+          />
         )
       }
     </div>

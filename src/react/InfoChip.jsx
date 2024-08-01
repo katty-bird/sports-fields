@@ -10,10 +10,8 @@ const InfoChip = ({ title, info }) => (
       {title}
     </Typography>
     <Stack direction="row" spacing={1}>
-      {/* <Chip label="Basketball" />
-      <Chip label="Football" /> */}
       {info.map(item => (
-        <Chip key={item} label={item} />
+        <Chip key={item} label={item} size="medium" />
       ))}
     </Stack>
   </Grid>

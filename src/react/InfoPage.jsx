@@ -17,7 +17,9 @@ import {
 } from '@mui/material'
 import InfoTabs from './InfoTabs'
 
-const InfoPage = ({ sportfield, onClose }) => {
+const InfoPage = ({
+  sportfield, onClose, placeID, setPlaceSportsInfo, setPlaceSanitaryInfo, setPlaceReviews
+}) => {
   const fieldName = sportfield[0]
   const fieldAddress = sportfield[1]
   const fieldRating = sportfield[2]
@@ -25,8 +27,8 @@ const InfoPage = ({ sportfield, onClose }) => {
   const fieldOpeningHours = sportfield[4]
   const fieldPhoto = sportfield[5]
   const fieldReviews = sportfield[6]
-  const fieldSportInfo = ['Basketball', 'Football']
-  const fieldSanitaryInfo = ['WC', 'WLAN']
+  const fieldSportsInfo = sportfield[7]
+  const fieldSanitaryInfo = sportfield[8]
   const handleBackClick = () => {
     onClose()
   }
@@ -72,7 +74,7 @@ const InfoPage = ({ sportfield, onClose }) => {
           <CardMedia
             component="img"
             height="300"
-            image={fieldPhoto.getUrl()}
+            image={fieldPhoto}
             alt="Photo of sport field"
           />
           )
@@ -88,9 +90,13 @@ const InfoPage = ({ sportfield, onClose }) => {
           <InfoTabs
             id="info-tabs"
             fieldOpeningHours={fieldOpeningHours}
-            fieldSportInfo={fieldSportInfo}
+            fieldSportsInfo={fieldSportsInfo}
             fieldSanitaryInfo={fieldSanitaryInfo}
             fieldReviews={fieldReviews}
+            placeIdInput={placeID}
+            setPlaceSportsInfo={setPlaceSportsInfo}
+            setPlaceSanitaryInfo={setPlaceSanitaryInfo}
+            setPlaceReviews={setPlaceReviews}
           />
         </CardContent>
       </Card>
