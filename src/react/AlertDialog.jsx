@@ -14,7 +14,7 @@ const AlertDialog = ({ open, handleAgree, handleDisagree }) => (
     aria-labelledby="alert-dialog-title"
     aria-describedby="alert-dialog-description"
     disableEscapeKeyDown
-    disableBackdropClick
+    disablebackdropclick="true"
   >
     <DialogTitle id="alert-dialog-title">
       Use Google location service?
