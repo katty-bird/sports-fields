@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useCallback } from 'react'
+import PropTypes from 'prop-types'
 import {
   APIProvider, Map, AdvancedMarker, Pin, InfoWindow
 } from '@vis.gl/react-google-maps'
@@ -10,7 +10,6 @@ import PlacesList from './PlacesList'
 import UserLocation from './UserLocation'
 import AlertDialog from './AlertDialog'
 
-// eslint-disable-next-line react/prop-types
 const GoogleMap = ({ selectedReview }) => {
   const [zoom, setZoom] = useState(17)
   const [open, setOpen] = useState(false)
@@ -76,7 +75,6 @@ const GoogleMap = ({ selectedReview }) => {
 
   useEffect(() => {
     if (selectedReview) {
-      // eslint-disable-next-line react/prop-types
       setMapCenter(selectedReview.location)
     }
   }, [selectedReview])
@@ -106,21 +104,18 @@ const GoogleMap = ({ selectedReview }) => {
             defaultCenter={{ lat: 52.5200, lng: 13.4050 }}
             center={mapCenter}
             onCenterChanged={e => setMapCenter(e.detail.center)}
-            onZoomChanged={e => setZoom()}
+            onZoomChanged={() => setZoom()}
             mapId={process.env.REACT_APP_MAP_ID}
             onLoad={map => {
-              // eslint-disable-next-line no-console
               console.log('Map Loaded:', map)
             }}
           >
             {selectedReview && (
-              // eslint-disable-next-line react/prop-types
               <AdvancedMarker position={selectedReview.location}>
                 <Pin background="white" borderColor="purple" glyphColor="purple" />
               </AdvancedMarker>
             )}
             {selectedReview && (
-              // eslint-disable-next-line react/prop-types
               <InfoWindow position={selectedReview.location}>
                 <div>
                   {/* eslint-disable-next-line react/prop-types */}
@@ -192,6 +187,19 @@ const GoogleMap = ({ selectedReview }) => {
       )}
     </APIProvider>
   )
+}
+
+// Define PropTypes for GoogleMap component
+GoogleMap.propTypes = {
+  // eslint-disable-next-line react/require-default-props
+  selectedReview: PropTypes.shape({
+    location: PropTypes.shape({
+      lat: PropTypes.number.isRequired,
+      lng: PropTypes.number.isRequired
+    }).isRequired,
+    field: PropTypes.string,
+    review: PropTypes.string
+  })
 }
 
 export default GoogleMap
